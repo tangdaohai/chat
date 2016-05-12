@@ -9,4 +9,5 @@ app.use(ctx => {
     ctx.body = "<h1>Hello Word</h1>";
 });
 
-app.listen(3003);
+
+module.exports = app;
