@@ -1,11 +1,25 @@
-let app = require("../app");
-let http = require("http");
+let conf = require("../configure");
+
+//默认 dev 模式
+let configure = conf[process.argv[2] || "dev"];
+
+if(!configure){
+    throw new Error(`${process.argv[2] || "没有配置参数."} 读取不到这个配置`);
+    process.exit();
+}
+
+//将配置信息设为全局变量
+global.configure = configure;
+
+//启动服务
+let app = require("../app"),
+    http = require("http");
 
 /**
  * Create HTTP server.
  */
 let server = http.createServer(app.callback()),
-    port = 3003;
+    port = configure.port || 3000;
 
 server.listen(port);
 server.on("error", onError);

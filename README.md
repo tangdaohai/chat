@@ -1,2 +1,6 @@
-#启动ES6支持
-node --use-strict --es_staging --harmony bin/www
+#Chat
+node, koa2 + socket.io + gulp + React
+
+#启动项目
+gulp start
+
