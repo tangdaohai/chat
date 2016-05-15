@@ -1,15 +1,10 @@
-let conf = require("../configure");
+let conf = require("../configure/configure");
 
 //默认 dev 模式
-let configure = conf[process.argv[2] || "dev"];
-
-if(!configure){
-    throw new Error(`${process.argv[2] || "没有配置参数."} 读取不到这个配置`);
-    process.exit();
-}
+// let configure = conf[process.argv[2] || "dev"];
 
 //将配置信息设为全局变量
-global.configure = configure;
+global.configure = conf(process.argv[2] || "dev");
 
 //启动服务
 let app = require("../app"),
