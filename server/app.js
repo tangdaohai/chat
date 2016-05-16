@@ -5,8 +5,8 @@
  * koa            : https://github.com/koajs/koa
  * co             : https://github.com/tj/co
  * koa-bodyparser : https://github.com/koajs/bodyparser
- * koa-es         : https://github.com/koajs/ejs
- * koa-router     : https://github.com/alexmingoia/koa-router
+ * koa-views      : https://github.com/queckezz/koa-views
+ * koa-router     :https://github.com/alexmingoia/koa-router/tree/master/
  * logger         : https://github.com/koajs/logger
  */
 
@@ -14,42 +14,28 @@
 let Koa = require("koa"),
     app = new Koa(),
     co = require("co"),
-    bodyparser = require("koa-bodyparser"),
-    render = require("koa-ejs"),
+    bodyParser = require("koa-bodyparser"),
+    views = require("koa-views"),
     router = require("koa-router")(),
     logger = require("koa-logger"),
-    convert = require("koa-convert"),
-    path = require("path");
+    convert = require("koa-convert");
 
 //引用路由文件
 let index = require("./routes/index");
 
-//配置 ejs 模板引擎 github : https://github.com/koajs/ejs
-render(app, {
-  root: path.join(__dirname, 'public'),
-  layout: false,
-  viewExt: "ejs",
-  cache: false,
-  debug: true,
-  delimiter : "%"
-});
+//配置 ejs 模板引擎 github : https://github.com/queckezz/koa-views
+app.use(views(__dirname + "/public",{ extension: 'ejs' }));
 
 app.use( convert(logger()) );
-app.use(bodyparser( configure.bodyparser ));
+app.use(bodyParser( configure.bodyparser ));
 
 //配置路由
-// router.use("/index", index.routes());
-router.get("/index", function *(ctx){
-  console.log(ctx.path);
-  // ctx.body = "<h1>index</h1>";
-  yield ctx.render("index", ctx.query);
-});
-app.use(router.routes()).use(router.allowedMethods());
+router.use("/index", index.routes(), index.allowedMethods());
+app.use(router.routes());
+app.use(router.allowedMethods());
 
 // app.use(co.wrap(function *(ctx, next) {
-//     // ctx.body = "<h1>Hello Word!</h1>";
-//     console.log(ctx.query);
-//     yield ctx.render("index", {a : ctx.query.a});
+//     yield ctx.render("index", ctx.query);
 // }));
 
 app.use(co.wrap(function *(ctx, next){
