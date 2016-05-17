@@ -34,15 +34,19 @@ router.use("/index", index.routes(), index.allowedMethods());
 app.use(router.routes());
 app.use(router.allowedMethods());
 
-// app.use(co.wrap(function *(ctx, next) {
-//     yield ctx.render("index", ctx.query);
-// }));
-
 app.use(co.wrap(function *(ctx, next){
   console.log("here, 404...");
   if(ctx.status === 404){
     ctx.body = "<h1>404 ...</h1>";
   }
+
+}));
+
+app.use(co.wrap(function *(ctx, next){
+    console.log("here, 404...");
+    if(ctx.status === 500){
+        ctx.body = "<h1>500 ...</h1>";
+    }
 
 }));
 
