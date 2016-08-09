@@ -33,16 +33,15 @@ const Koa = require("koa"),
 //开发模式下使用 webpack 自动打包插件
 if(configure.useWebpack){
     const webpack = require('webpack'),
-        webpackDevMiddleware = require("koa-webpack-middleware"),
         config = require('../webpack/webpack.middleware.config.js'),    //引入配置文件
         compile = webpack(config.basic);
     //webpack 依赖插件
     require("babel-polyfill");
 
     //打包
-    app.use( webpackDevMiddleware.devMiddleware(compile, config.dev) );
+    app.use( convert(require("koa-webpack-dev-middleware")(compile, config.dev)) );
     //热替换
-    app.use( convert(require("koa-webpack-hot-middleware")(compile)) );
+    app.use( convert(require("koa-webpack-hot-middleware")(compile, config.hot)) );
 }
 /** webpack configure. end */
 

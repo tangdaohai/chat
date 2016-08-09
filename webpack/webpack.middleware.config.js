@@ -8,7 +8,7 @@ var path = require('path');
 //基础配置
 const basic = {
     entry: [
-        "webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=true",
+        "webpack-hot-middleware/client",
         "./components/Root.js"
     ],
     output: {
@@ -46,7 +46,7 @@ const basic = {
 //webpack dev middleware 配置
 const dev = {
         quiet: false,
-        noInfo: false,
+        noInfo: !false,
         historyApiFallback: false,
         publicPath: basic.output.publicPath,
         filename: basic.output.filename,
@@ -56,8 +56,4 @@ const dev = {
 //webpack hot middleware 配置
 const hot = {};
 
-module.exports = {
-    basic : basic,
-    dev : dev,
-    hot : hot
-};
+module.exports = {basic, dev, hot};
