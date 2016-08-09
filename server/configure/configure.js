@@ -15,7 +15,7 @@ module.exports = model => {
     encode : "utf-8",
     formLimit : "1MB",
     jsonLimit : "1.5MB"
-  }
+  };
 
   return conf;
 };

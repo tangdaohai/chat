@@ -3,5 +3,6 @@
  */
 
 module.exports = {
-  port : 3003
-}
+  port : 3003,
+  useWebpack : !0
+};
