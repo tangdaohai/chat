@@ -34,7 +34,7 @@ const Koa = require("koa"),
 if(configure.useWebpack){
     const webpack = require('webpack'),
         webpackDevMiddleware = require("koa-webpack-middleware"),
-        config = require('../webpack.config'),
+        config = require('../webpack/webpack.middleware.config.js'),    //引入配置文件
         compile = webpack(config.basic);
     //webpack 依赖插件
     require("babel-polyfill");

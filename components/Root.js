@@ -4,6 +4,6 @@
 
 import React from 'react';
 import ReactDom from 'react-dom';
-import Hello from 'test/hello';
+import Hello from './test/hello';
 
 ReactDom.render(<Hello text = 'World' />, document.querySelector("#main"));
