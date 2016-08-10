@@ -9,7 +9,7 @@ var path = require('path');
 const basic = {
     entry: [
         "webpack-hot-middleware/client",
-        "./components/Root.js"
+        "./client/components/Root.js"
     ],
     output: {
         path: __dirname,
@@ -46,7 +46,7 @@ const basic = {
 //webpack dev middleware 配置
 const dev = {
         quiet: false,
-        noInfo: !false,
+        noInfo: false,
         historyApiFallback: false,
         publicPath: basic.output.publicPath,
         filename: basic.output.filename,
