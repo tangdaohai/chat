@@ -7,27 +7,37 @@ var path = require('path');
 
 //基础配置
 const basic = {
-    entry: [
-        "webpack-hot-middleware/client",
-        "./client/components/Root.js"
-    ],
+    entry: {
+        index: [
+            "webpack-hot-middleware/client?reload=true",
+            "../client/components/Index.js"
+        ],
+        root: "../client/components/Root.js"
+    },
     output: {
-        path: __dirname,
-        publicPath: "/js",
-        filename: "bundle.js"
+        path: __dirname + "/js",
+        filename: "[name].js",
+        chunkFilename: '[id].chunk.js',
+        publicPath: "/js/"
     },
     plugins: [
+        new webpack.optimize.CommonsChunkPlugin('shared.js'),
         new webpack.optimize.OccurenceOrderPlugin(),
         new webpack.HotModuleReplacementPlugin(),
         new webpack.NoErrorsPlugin()
     ],
     debug: true,
-    devtool: '#source-map',
+    devtool: 'inline-source-map',
     resolve: {
         root: [
             path.resolve(__dirname, './components')
         ],
         extensions: ['', '.js', '.json', '.jsx']
+    },
+    // Expose __dirname to allow automatically setting basename.
+    context: __dirname,
+    node: {
+        __dirname: true
     },
     module: {
         loaders: [

@@ -5,11 +5,37 @@
     <link rel="icon" href="favicon.ico">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
     <title>Title</title>
+    <style>
+        body{
+            width: 100%;
+            min-height: 600px;
+        }
+
+        .absolute-center{
+            width: 60%;
+            min-height: 600px;
+            height: 65%;
+            margin: auto;
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            background-color: #f7f7f9;
+        }
+
+        .shadow{
+            box-shadow: 0 6px 12px rgba(0,0,0,.175);
+            -webkit-box-shadow: 0 6px 12px rgba(0,0,0,.175);
+        }
+    </style>
 </head>
 <body>
-    <h1>Hello! ejs 模板, 参数 a = <%= a %></h1>
 
-    <div id="main"></div>
-    <script type="text/javascript" src="js/bundle.js"></script>
+    <div class="absolute-center shadow" id="main">
+    </div>
+
+    <script type="text/javascript" src="js/shared.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
 </body>
 </html>
