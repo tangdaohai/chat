@@ -6,14 +6,12 @@ import React from "react";
 import ReactDom from "react-dom";
 
 import Login from "./user/login";
+import Chat from "./chat/chat";
 
 class App extends React.Component{
     render() {
-        return (<div>
-            { this.props.isLogin ? <Login /> : <h1>已登录.</h1>}
-        </div>);
+        return this.props.isLogin ? <Login /> : <Chat/>;
     }
 }
 
-
-ReactDom.render(<App isLogin = {!0}/>, document.querySelector("#main"));
+ReactDom.render(<App isLogin = {!1}/>, document.querySelector("#main"));
