@@ -44,10 +44,7 @@ const basic = {
             {
                 test: /\.js$/,
                 loader: 'babel',
-                exclude: /node_modules/,
-                query: {
-                    presets: ['react', 'es2015']
-                }
+                exclude: /node_modules/
             }
         ]
     }
@@ -56,7 +53,7 @@ const basic = {
 //webpack dev middleware 配置
 const dev = {
         quiet: false,
-        noInfo: false,
+        noInfo: !0,
         historyApiFallback: false,
         publicPath: basic.output.publicPath,
         filename: basic.output.filename,
