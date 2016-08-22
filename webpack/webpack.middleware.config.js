@@ -9,7 +9,7 @@ var path = require('path');
 const basic = {
     entry: {
         index: [
-            "webpack-hot-middleware/client?reload=true",
+            "webpack-hot-middleware/client",
             "../client/components/Index.js"
         ],
         root: "../client/components/Root.js"

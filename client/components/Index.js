@@ -5,8 +5,8 @@
 import React from "react";
 import ReactDom from "react-dom";
 
-import Login from "./user/login";
-import Chat from "./chat/chat";
+import Login from "./user/Login";
+import Chat from "./chat/Chat";
 
 class App extends React.Component{
     render() {

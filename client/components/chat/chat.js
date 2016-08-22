@@ -5,13 +5,27 @@
 import React from "react";
 import { Row, Col} from "antd";
 
+import Interaction from "./Interaction/Interaction";
+import Content from "./content/Content";
+
 export default class Chat extends React.Component{
 
     render(){
-        return <div style={ { height : "100%"} }>
-            <Row type="flex" justify="center">
-                <Col span={6}>左侧</Col>
-                <Col span={15}>右侧</Col>
+
+        const childStyles = {
+            height : "440px",
+            borderRadius : "10px",
+            border: '2px solid #e9e9e9'
+        };
+        
+        return <div style={ { height : "100%", paddingTop : "40px"} }>
+            <Row type="flex" justify="center" gutter={16}>
+                <Col span={6}>
+                    <Interaction childStyles = {childStyles} />
+                </Col>
+                <Col span={15}>
+                    <Content childStyles = {childStyles} />
+                </Col>
             </Row>
         </div>
     }
