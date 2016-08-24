@@ -3,15 +3,16 @@
  */
 
 import React from "react";
-import Head from "./Head";
+import Myself from "./Myself";
+import UserList from "./UserList";
 
 export default class Interaction extends React.Component{
 
     render() {
-
-        return <div style={ this.props.childStyles } >
-            <Head/>
-            功能区
+        
+        return <div style={ { ...this.props.childStyles} } >
+            <Myself />
+            <UserList />
         </div>
     }
 

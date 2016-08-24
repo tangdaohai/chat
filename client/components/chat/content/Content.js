@@ -4,12 +4,14 @@
 
 import React from "react";
 
+import MessageList from "./message/MessageList";
+
 export default class Content extends React.Component{
 
     render() {
 
         return <div style={ this.props.childStyles } >
-            显示内容
+            <MessageList />
         </div>
     }
 
