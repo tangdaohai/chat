@@ -1,6 +1,6 @@
 .list-scroll{
     overflow: auto;
-    height: 78%;
+    height: 80%;
 }
 .user-list li > div{
     height: 65px;

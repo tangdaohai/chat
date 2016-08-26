@@ -7,7 +7,7 @@
 import React from "react";
 import { Badge } from 'antd';
 
-import "./user.css";
+import "./../myself/user.css";
 
 export default class UserList extends React.Component{
 

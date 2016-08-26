@@ -7,7 +7,7 @@
 import React from "react";
 import QueueAnim from "rc-queue-anim";
 
-import "./myself.css"
+import "./../user-list/myself.css"
 
 export default class Head extends React.Component{
 

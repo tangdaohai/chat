@@ -3,8 +3,8 @@
  */
 
 import React from "react";
-import Myself from "./Myself";
-import UserList from "./UserList";
+import Myself from "./myself/Myself";
+import UserList from "./user-list/UserList";
 
 export default class Interaction extends React.Component{
 
