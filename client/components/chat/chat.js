@@ -24,7 +24,7 @@ export default class Chat extends React.Component{
                     <Interaction childStyles = {childStyles} />
                 </Col>
                 <Col span={15} style={ { height : "100%"} }>
-                    <Content childStyles = {childStyles} />
+                    <Content { ...this.props } childStyles = {childStyles} />
                 </Col>
             </Row>
         </div>

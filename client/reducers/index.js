@@ -3,6 +3,7 @@
  */
 
 import { combineReducers } from "redux";
-import counter from "./count";
+// import counter from "./count";
+import send from "./send";
 
-export default combineReducers({ counter });
+export default combineReducers({ send });

@@ -11,11 +11,27 @@ export default class MessageList extends React.Component{
 
     render(){
 
-        return <div className="message-list">
+        return <div className="message-list" ref="message-list">
             {
                 this.props.messageList.map( (val, index) => <Message key={index} message={ val } />)
             }
         </div>
+    }
+
+    //初次渲染
+    componentDidMount(){
+        this.initScrollTop();
+    }
+
+    //props 或者 state 新数据 渲染完成后的调用方法
+    componentDidUpdate(){
+        this.initScrollTop();
+    }
+
+    //调整滚动条高度
+    initScrollTop(){
+        //在渲染完毕后 将 message list 的滚动条高度调整到最下面
+        this.refs["message-list"].scrollTop = 100000;
     }
 }
 

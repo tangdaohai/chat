@@ -10,9 +10,8 @@ const basic = {
     entry: {
         index: [
             "webpack-hot-middleware/client",
-            "../client/components/Index.js"
-        ],
-        root: "../client/components/Root.js"
+            "../client/Index.js"
+        ]
     },
     output: {
         path: __dirname + "/js",
