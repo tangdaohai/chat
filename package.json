@@ -32,13 +32,15 @@
     "react-dom": "^15.3.0",
     "react-redux": "^4.4.5",
     "react-router": "^2.6.1",
+    "react-router-redux": "^4.0.5",
     "react-transform-hmr": "^1.0.4",
     "redux": "^3.5.2",
     "redux-thunk": "^2.1.0",
     "style-loader": "^0.13.1",
-    "webpack": "^1.13.1"
+    "webpack": "^1.13.1",
+    "webpack-dev-server": "^1.15.0"
   },
   "scripts": {
-    "dev": "webpack-dev-server --port 8000 --devtool eval --progress --colors --hot --content-base server/public"
+    "dev": "webpack-dev-server --history-api-fallback --inline-source-map --port 8000 --devtool eval --progress --colors --hot --content-base server/public"
   }
 }

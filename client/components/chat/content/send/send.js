@@ -4,7 +4,6 @@
 
 import React from "react";
 import "./send.css";
-
 export default class Send extends React.Component{
 
     handleKeyUp = (e) => {
@@ -15,7 +14,7 @@ export default class Send extends React.Component{
         const value = e.target.value;
         e.target.value = "";
 
-        this.props.send({
+        this.props.actions.send({
             isMyself : true,
             time : new Date().toLocaleString(),
             text : value,

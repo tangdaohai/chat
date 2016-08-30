@@ -47,6 +47,8 @@ if(configure.useWebpack){
 
 //配置 body parser
 app.use(bodyParser( configure.bodyparser ));
+//静态资源
+app.use( convert(staticFiles(__dirname + "/public")) );
 //配置 ejs 模板引擎
 app.use(views(__dirname + "/public",{ extension: 'ejs' }));
 //配置 logger
@@ -56,12 +58,9 @@ app.use( convert(logger()) );
 const index = require("./routes/index");
 
 //配置路由
-router.use("/", index.routes(), index.allowedMethods());
+router.use("*", index.routes(), index.allowedMethods());
 app.use(router.routes());
 app.use(router.allowedMethods());
-
-//静态资源
-app.use( convert(staticFiles(__dirname + "/public")) );
 
 app.use(co.wrap(function *(ctx){
     console.log("已进入404的方法");
