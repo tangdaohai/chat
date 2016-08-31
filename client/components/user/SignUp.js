@@ -4,6 +4,7 @@
 
 import React from "react";
 import { Form, Input, Button, Checkbox } from 'antd';
+import { Link } from "react-router";
 const FormItem = Form.Item;
 
 class Login extends React.Component{
@@ -30,13 +31,13 @@ class Login extends React.Component{
                     <Input type="password" {...getFieldProps('pass', { initialValue: '' })} placeholder="请输入密码" />
                 </FormItem>
 
-                <FormItem wrapperCol={{ span: 16, offset: 6 }}>
-                    <Checkbox {...getFieldProps('remember', { initialValue: false, valuePropName: 'checked' })}>记住密码</Checkbox>
+                <FormItem {...formItemLayout} label="确认密码 :">
+                    <Input type="password" {...getFieldProps('pass', { initialValue: '' })} placeholder="请输入密码" />
                 </FormItem>
 
                 <FormItem wrapperCol={{ span: 16, offset: 6 }}>
                     <Button type="primary" htmlType="submit">确定</Button>
-                    <a style= {{marginLeft : "20px"}}>注册新账户</a>
+                    <Link to="/sign-in" style={ {marginLeft : "20px"} }>已有账号,登陆</Link>
                 </FormItem>
             </Form>
         </div>;

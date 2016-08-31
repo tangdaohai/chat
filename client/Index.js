@@ -7,13 +7,13 @@ import ReactDom from "react-dom";
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import { Provider } from "react-redux";
 import thunk from "redux-thunk";
-import { Router, Route, IndexRoute, browserHistory } from 'react-router';
+import { Router, Route, IndexRedirect, browserHistory } from 'react-router';
 import { syncHistoryWithStore, routerReducer } from 'react-router-redux';
 
 //引入所有的 reducer
 import * as reducers from "./reducers";
-//引入组件
-import { Login, Chat } from "./components";
+//引入所有的组件
+import * as Components from "./components";
 import "./index.css";
 
 //讲 reducer, react-router 与 redux 绑定
@@ -53,9 +53,10 @@ class App extends React.Component{
 ReactDom.render(<Provider store = { store }>
     <Router history = {history}>
         <Route path="/" component={App}>
-            <IndexRoute to="login" />
-            <Route path="chat" component={Chat} />
-            <Route path="login" component={Login} />
+            <IndexRedirect to="sign-in" />
+            <Route path="chat" component={ Components.Chat } />
+            <Route path="sign-in" component={ Components.SignIn } />
+            <Route path="sign-up" component={ Components.SignUp } />
         </Route>
     </Router>
 </Provider>, document.querySelector("#main"));
