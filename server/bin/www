@@ -1,20 +1,23 @@
-let conf = require("../configure/configure");
+const conf = require("../configure/configure");
 
 //默认 dev 模式
-// let configure = conf[process.argv[2] || "dev"];
+// const configure = conf[process.argv[2] || "dev"];
 
 //将配置信息设为全局变量
 global.configure = conf(process.argv[2] || "dev");
 
 //启动服务
-let app = require("../app"),
+const app = require("../app"),
     http = require("http");
 
 /**
  * Create HTTP server.
  */
-let server = http.createServer(app.callback()),
+const server = http.createServer(app.callback()),
     port = configure.port || 3000;
+//引用 socket.io
+const io = require("socket.io")(server);
+require("../socket.io/Socket")(io);
 
 server.listen(port);
 server.on("error", onError);

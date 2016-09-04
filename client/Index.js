@@ -9,7 +9,7 @@ import { Provider } from "react-redux";
 import thunk from "redux-thunk";
 import { Router, Route, IndexRedirect, browserHistory } from 'react-router';
 import { syncHistoryWithStore, routerReducer } from 'react-router-redux';
-
+import SocketService from "./SocketService"
 //引入所有的 reducer
 import * as reducers from "./reducers";
 //引入所有的组件
@@ -26,6 +26,9 @@ const store = createStore(reducer, compose(
     applyMiddleware( thunk ),
     window.devToolsExtension ? window.devToolsExtension() : f => f
 ));
+
+//引入 socket
+SocketService(store);
 
 //热替换选项
 if (module.hot) {
