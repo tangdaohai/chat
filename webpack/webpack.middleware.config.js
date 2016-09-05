@@ -43,6 +43,15 @@ const basic = {
             {
                 test: /\.js$/,
                 loader: 'babel',
+                query : {
+                    "presets": ["react", "es2015", "stage-0"],
+                    "plugins": ["transform-decorators-legacy"],
+                    "env": {
+                        "development": {
+                            "presets": ["react-hmre"]
+                        }
+                    }
+                },
                 exclude: /node_modules/
             },{
                 test: /\.css$/,

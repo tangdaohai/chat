@@ -9,10 +9,10 @@ import UserList from "./user-list/UserList";
 export default class Interaction extends React.Component{
 
     render() {
-        
+
         return <div style={ { ...this.props.childStyles} } >
             <Myself />
-            <UserList />
+            <UserList {...this.props} />
         </div>
     }
 

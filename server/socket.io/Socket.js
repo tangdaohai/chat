@@ -3,7 +3,6 @@
  */
 
 module.exports = function Socket(io){
-    console.log(io);
     io.of("/chat").on("connection", (socket) => {
         console.log(`有一个连接加入 ${socket}`);
         socket.on("send", (data) =>{
