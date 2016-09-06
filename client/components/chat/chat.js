@@ -5,7 +5,7 @@
 import React from "react";
 import { Row, Col} from "antd";
 
-import Interaction from "./interaction/Interaction";
+import Interaction from "./users/Interaction";
 import Content from "./content/Content";
 
 //绑定 Redux
@@ -24,11 +24,7 @@ function mapStateToProps(state){
 //将action的所有方法绑定到props上
 function mapDispatchToProps(dispatch) {
     return {
-        actions: bindActionCreators( {SendAction, getUserList : () => {
-            return {
-                type : "user-list"
-            }
-        } }, dispatch )
+        actions: bindActionCreators( SendAction, dispatch )
     }
 }
 
