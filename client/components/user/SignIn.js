@@ -5,14 +5,20 @@
 import React from "react";
 import { Form, Input, Button, Checkbox } from 'antd';
 import { Link } from "react-router";
-
 const FormItem = Form.Item;
 
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
+import { login } from "../../action/UserAction";
+
+@connect( state => ({ user: state.user }), dispatch => ({ ...bindActionCreators( {login} , dispatch) }) )
 class Login extends React.Component{
 
     handleSubmit(e) {
         e.preventDefault();
-        console.log('收到表单值：', this.props.form.getFieldsValue());
+        const { email, password } = this.props.form.getFieldsValue();
+        const user = { email, password };
+        this.props.login(user);
     }
 
     render() {
@@ -25,11 +31,11 @@ class Login extends React.Component{
         return <div style={{ margin : "120px auto", maxWidth : "480px" }}>
             <Form horizontal onSubmit={this.handleSubmit.bind(this)}>
                 <FormItem {...formItemLayout} label="邮箱 :">
-                    <Input placeholder="请输入邮箱" {...getFieldProps('userName')}/>
+                    <Input placeholder="请输入邮箱" {...getFieldProps("email")}/>
                 </FormItem>
 
                 <FormItem {...formItemLayout} label="密码 :">
-                    <Input type="password" {...getFieldProps('pass', { initialValue: '' })} placeholder="请输入密码" />
+                    <Input type="password" {...getFieldProps('password', { initialValue: '' })} placeholder="请输入密码" />
                 </FormItem>
 
                 <FormItem wrapperCol={{ span: 16, offset: 6 }}>

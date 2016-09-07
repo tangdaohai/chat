@@ -18,13 +18,13 @@ import * as SendAction from "../../action/SendAction";
 function mapStateToProps(state){
     return {
         messageList : state.send,
-        userList : state.userList
+        user : state.user
     }
 }
 //将action的所有方法绑定到props上
 function mapDispatchToProps(dispatch) {
     return {
-        actions: bindActionCreators( SendAction, dispatch )
+        actions: bindActionCreators( SendAction, dispatch)
     }
 }
 
@@ -34,6 +34,7 @@ export default class Chat extends React.Component{
     render(){
 
         // this.props.actions.getUserList();
+        console.log(this.props.user);
 
         const childStyles = {
             height : "90%",

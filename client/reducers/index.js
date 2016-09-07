@@ -4,3 +4,4 @@
 
 export send from "./send";
 export userList from "./userList";
+export user from "./user";

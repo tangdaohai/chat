@@ -4,36 +4,16 @@
 
 import React from "react";
 import ReactDom from "react-dom";
-import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import { Provider } from "react-redux";
-import thunk from "redux-thunk";
 import { Router, Route, IndexRedirect, browserHistory } from 'react-router';
-import { syncHistoryWithStore, routerReducer } from 'react-router-redux';
-//引入所有的 reducer
-import * as reducers from "./reducers";
+import { syncHistoryWithStore } from 'react-router-redux';
 //引入所有的组件
 import * as Components from "./components";
+//引入创建好的 store.
+import store from "./store";
+
 import "./index.css";
-
-//讲 reducer, react-router 与 redux 绑定
-const reducer = combineReducers({
-    ...reducers,
-    routing: routerReducer
-});
-
-const store = createStore(reducer, compose(
-    applyMiddleware( thunk ),
-    window.devToolsExtension ? window.devToolsExtension() : f => f
-));
-
-//热替换选项
-if (module.hot) {
-    // Enable Webpack hot module replacement for reducers
-    module.hot.accept('./reducers', () => {
-        const nextReducer = require('./reducers');
-        store.replaceReducer(nextReducer);
-    })
-}
+import "antd/dist/antd.css"
 
 //路由生成规则, 与 redux 结合.
 const history = syncHistoryWithStore(browserHistory, store);

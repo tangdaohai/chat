@@ -16,8 +16,8 @@ function getSocket(){
         reconnectionDelay : 1000
     });
 
-    io.on("connect", (data) => {
-        console.log(data);
+    io.on("connect", () => {
+        console.log("socket. 连接成功");
     });
 
     // io.on("get", (data) => {

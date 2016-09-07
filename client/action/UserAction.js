@@ -3,18 +3,19 @@
  */
 
 import io from "../Socket";
+import { browserHistory } from "react-router";
 
 export const LOGIN_SUCCESS = "login-success";
 export const LOGIN_FAIL = "login-fail";
 
-export function loginSuccess(user){
+function loginSuccess(user){
     return {
         type : LOGIN_SUCCESS,
         user
     }
 }
 
-export function loginFail(user){
+function loginFail(user){
     return {
         type : LOGIN_FAIL,
         user
@@ -22,7 +23,17 @@ export function loginFail(user){
 }
 
 export function login(user){
-    io.emit("user/login", user, (user) =>{
-        
-    });
+    return dispatch => {
+        //通过 socket 请求
+        io.emit("user/login", user, (user) =>{
+            console.log(user);
+            if(user){
+                //登陆成功
+                browserHistory.push("/chat");
+                return dispatch(loginSuccess(user));
+            }else{
+                return dispatch(loginFail());
+            }
+        });
+    }
 }

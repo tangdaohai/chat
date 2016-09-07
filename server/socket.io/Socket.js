@@ -13,8 +13,8 @@ module.exports = function Socket(io){
             socket.emit("get", "服务器端发送测试");
         });
         
-        socket.on("user/login", (user, collback) => {
-            collback(userService.login(user));
+        socket.on("user/login", (user, callback) => {
+            callback(userService.login(user));
         });
     });
 };
