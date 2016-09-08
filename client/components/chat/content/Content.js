@@ -14,8 +14,8 @@ export default class Content extends React.Component{
 
         return <div style={ this.props.childStyles } >
             <UserName userName = "省略两个字." />
-            <MessageList { ...this.props } />
-            <Send {...this.props}/>
+            <MessageList/>
+            <Send/>
         </div>
     }
 

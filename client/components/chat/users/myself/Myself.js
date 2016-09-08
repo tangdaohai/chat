@@ -7,21 +7,22 @@
 import React from "react";
 import QueueAnim from "rc-queue-anim";
 
-import "./myself.css"
+import "./myself.css";
 
+import { connect } from "react-redux";
+
+@connect( state => ( { user : state.login.userInfo} ) )
 export default class Head extends React.Component{
 
     render() {
 
-        const textStyle = {
-            
-        };
+        const user = this.props.user || {};
 
         return <QueueAnim className="my-head" delay= {500}>
             <div key = "a">
-                <img  src="https://facebook.github.io/react/img/logo.svg"/>
+                <img  src={ user.handImg }/>
                 <div className="my-name">
-                    <h5 className="name-text">React break async</h5>
+                    <h5 className="name-text">{ user.nick }</h5>
                 </div>
             </div>
         </QueueAnim>

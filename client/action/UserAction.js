@@ -3,7 +3,6 @@
  */
 
 import io from "../Socket";
-import { browserHistory } from "react-router";
 
 export const LOGIN_SUCCESS = "login-success";
 export const LOGIN_FAIL = "login-fail";
@@ -15,24 +14,21 @@ function loginSuccess(user){
     }
 }
 
-function loginFail(user){
+function loginFail(message){
     return {
         type : LOGIN_FAIL,
-        user
+        message
     }
 }
 
 export function login(user){
     return dispatch => {
         //通过 socket 请求
-        io.emit("user/login", user, (user) =>{
-            console.log(user);
-            if(user){
-                //登陆成功
-                browserHistory.push("/chat");
-                return dispatch(loginSuccess(user));
+        io.emit("user/login", user, (result) =>{
+            if(result.success){
+                return dispatch(loginSuccess(result.content));
             }else{
-                return dispatch(loginFail());
+                return dispatch(loginFail(result.message));
             }
         });
     }

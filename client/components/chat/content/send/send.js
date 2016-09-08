@@ -4,6 +4,12 @@
 
 import React from "react";
 import "./send.css";
+
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
+import * as SendAction from "../../../../action/SendAction";
+
+@connect(null, (dispatch) => ( { ...bindActionCreators( SendAction, dispatch) } ))
 export default class Send extends React.Component{
 
     handleKeyUp = (e) => {
@@ -14,7 +20,7 @@ export default class Send extends React.Component{
         const value = e.target.value;
         e.target.value = "";
 
-        this.props.actions.send({
+        this.props.send({
             isMyself : true,
             time : new Date().toLocaleString(),
             text : value,

@@ -6,6 +6,7 @@
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import thunk from "redux-thunk";
 import { routerReducer } from 'react-router-redux';
+import logger from 'redux-diff-logger';
 
 //引入所有的 reducer
 import * as reducers from "../reducers";
@@ -19,6 +20,7 @@ export default ( () => {
 
     const store = createStore(reducer, compose(
         applyMiddleware( thunk ),
+        applyMiddleware(logger),
         window.devToolsExtension ? window.devToolsExtension() : f => f
     ));
 

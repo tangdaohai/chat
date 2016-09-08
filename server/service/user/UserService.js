@@ -2,6 +2,8 @@
  * Created by Jerry on 16/9/6.
  */
 
+const Format = require("../DataFormat");
+
 module.exports = class UserService{
 
     /**
@@ -13,8 +15,12 @@ module.exports = class UserService{
         const UserList = this._getUserList();
 
         const index = UserList.findIndex((val) => val.email === user.email && val.password === user.password);
+        
+        if(index > -1){
+            return Format.success(UserList[index]);
+        }
 
-        return UserList[index];
+        return Format.fail("账号或密码输入不匹配");
     }
 
     /**
