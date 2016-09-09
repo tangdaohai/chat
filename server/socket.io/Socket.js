@@ -13,8 +13,12 @@ module.exports = function Socket(io){
             socket.emit("get", "服务器端发送测试");
         });
         
-        socket.on("user/login", (user, callback) => {
-            callback(userService.login(user));
+        socket.on("user/signIn", (user, callback) => {
+            callback(userService.signIn(user));
+        });
+
+        socket.on("user/signUp", (user, callback) => {
+            callback(userService.signUp(user));
         });
     });
 };

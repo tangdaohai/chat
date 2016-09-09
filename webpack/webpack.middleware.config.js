@@ -2,6 +2,8 @@
  * Created by Jerry on 16/8/4.
  */
 
+"use strict";
+
 var webpack = require('webpack');
 var path = require('path');
 

@@ -11,16 +11,27 @@ module.exports = class UserService{
      * @param user
      * @returns {*}
      */
-    login(user = {}){
+    signIn(user){
+        user = user || {};
         const UserList = this._getUserList();
 
         const index = UserList.findIndex((val) => val.email === user.email && val.password === user.password);
         
         if(index > -1){
-            return Format.success(UserList[index]);
+            let user = Object.assign({}, UserList[index]);
+            delete user.password;
+            return Format.success( user );
         }
 
         return Format.fail("账号或密码输入不匹配");
+    }
+    
+    signUp(user){
+        return Format.fail("注册失败……");
+    }
+
+    getOnlineUser(){
+
     }
 
     /**

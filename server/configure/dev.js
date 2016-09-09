@@ -4,5 +4,13 @@
 
 module.exports = {
   port : 3003,
-  useWebpack : !0
+  useWebpack : !0,
+  mongoURI : "mongodb://localhost:27017/chat",
+  mongoOption : {
+    db: { native_parser: true },
+    server: { poolSize: 5 },
+    replset: { rs_name: 'myReplicaSetName' },
+    user: 'chat',
+    pass: '123456'
+  }
 };

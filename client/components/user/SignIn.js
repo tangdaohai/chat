@@ -9,9 +9,9 @@ const FormItem = Form.Item;
 
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import { login } from "../../action/UserAction";
+import { signIn } from "../../action/UserAction";
 
-@connect( state => ({ loginResult : state.login }), dispatch => ({ ...bindActionCreators( {login} , dispatch) }) )
+@connect( state => ({ loginResult : state.signIn }), dispatch => ({ ...bindActionCreators( {signIn} , dispatch) }) )
 class Login extends React.Component{
 
     state = {
@@ -21,9 +21,8 @@ class Login extends React.Component{
     handleSubmit(e) {
         e.preventDefault();
         const { email, password } = this.props.form.getFieldsValue();
-        const user = { email, password };
         this.setState({ loading : !0 });
-        this.props.login(user);
+        this.props.signIn({ email, password });
     }
 
     closeLogin(){

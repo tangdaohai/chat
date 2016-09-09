@@ -29,13 +29,19 @@ class App extends React.Component{
     }
 }
 
+const NotFound = () =>  <div>
+    <h1>我屮艸芔茻,这个页面飞了, 404……</h1>
+</div>;
+
 ReactDom.render(<Provider store = { store }>
     <Router history = {history}>
         <Route path="/" component={App}>
             <IndexRedirect to="sign-in" />
             <Route path="chat" component={ Components.Chat } />
+            <Route path="sign-:type" component={ Components.Sign }></Route>
             <Route path="sign-in" component={ Components.SignIn } />
             <Route path="sign-up" component={ Components.SignUp } />
+            <Route path="404" component= { NotFound } />
         </Route>
     </Router>
 </Provider>, document.querySelector("#main"));

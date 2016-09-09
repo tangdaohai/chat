@@ -11,7 +11,7 @@ import "./myself.css";
 
 import { connect } from "react-redux";
 
-@connect( state => ( { user : state.login.userInfo} ) )
+@connect( state => ( { user : state.signIn.userInfo} ) )
 export default class Head extends React.Component{
 
     render() {

@@ -11,7 +11,7 @@ import Content from "./content/Content";
 
 import { connect } from "react-redux";
 
-@connect( state => ({ messageList : state.send, user : state.login.userInfo }) )
+@connect( state => ({ messageList : state.send, user : state.signIn.userInfo }) )
 export default class Chat extends React.Component{
 
     componentWillMount(){

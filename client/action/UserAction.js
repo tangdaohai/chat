@@ -4,32 +4,58 @@
 
 import io from "../Socket";
 
-export const LOGIN_SUCCESS = "login-success";
-export const LOGIN_FAIL = "login-fail";
+export const SIGN_IN_SUCCESS = "login-success";
+export const SIGN_IN_FAIL = "login-fail";
 
-function loginSuccess(user){
+/**
+ * 登陆
+ * @param user
+ * @returns {function()}
+ */
+export function signIn(user){
+    return dispatch => {
+        //通过 socket 请求
+        io.emit("user/signIn", user, (result) =>{
+            if(result.success){
+                return dispatch(success(result.content));
+            }else{
+                return dispatch(fail(result.message));
+            }
+        });
+    }
+}
+
+
+/**
+ * 注册
+ * @param user
+ */
+export function signUp(user){
+
+    return dispatch => {
+        io.emit("user/signUp", user, (result) => {
+           if(result.success){
+               //注册成功 直接进行登陆
+               return dispatch(success(result.content));
+           }else{
+               return dispatch(fail(result.message));
+           }
+        });
+    }
+}
+
+//登陆或注册成功
+function success(user){
     return {
-        type : LOGIN_SUCCESS,
+        type : SIGN_IN_SUCCESS,
         user
     }
 }
 
-function loginFail(message){
+//登陆或注册失败
+function fail(message){
     return {
-        type : LOGIN_FAIL,
+        type : SIGN_IN_FAIL,
         message
-    }
-}
-
-export function login(user){
-    return dispatch => {
-        //通过 socket 请求
-        io.emit("user/login", user, (result) =>{
-            if(result.success){
-                return dispatch(loginSuccess(result.content));
-            }else{
-                return dispatch(loginFail(result.message));
-            }
-        });
     }
 }

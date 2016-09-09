@@ -2,24 +2,24 @@
  * Created by Jerry on 16/9/7.
  */
 
-import { LOGIN_SUCCESS, LOGIN_FAIL } from "../action/UserAction";
+import { SIGN_IN_SUCCESS, SIGN_IN_FAIL } from "../action/UserAction";
 
 /**
  * 返回 登陆 信息
- * @param login
+ * @param userInfo
  * @param action
  * @returns {*}
  */
-export function login(login = {}, action){
+export function signIn(userInfo = {}, action){
 
-    const result = Object.assign( {}, login);
+    const result = Object.assign( {}, userInfo);
 
     switch (action.type){
-        case LOGIN_SUCCESS :
+        case SIGN_IN_SUCCESS :
             result.userInfo = action.user;
             delete result.errorMessage;
             break;
-        case LOGIN_FAIL :
+        case SIGN_IN_FAIL :
             result.errorMessage = action.message;
             delete result.userInfo;
     }
