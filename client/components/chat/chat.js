@@ -4,38 +4,25 @@
 
 import React from "react";
 import { Row, Col} from "antd";
+import { browserHistory } from "react-router";
 
 import Interaction from "./users/Interaction";
 import Content from "./content/Content";
 
-//绑定 Redux
-import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import * as SendAction from "../../action/SendAction";
 
-
-//将state.counter绑定到props的counter
-function mapStateToProps(state){
-    return {
-        messageList : state.send,
-        user : state.user
-    }
-}
-//将action的所有方法绑定到props上
-function mapDispatchToProps(dispatch) {
-    return {
-        actions: bindActionCreators( SendAction, dispatch)
-    }
-}
-
-@connect(mapStateToProps, mapDispatchToProps)
+@connect( state => ({ messageList : state.send, user : state.login.userInfo }) )
 export default class Chat extends React.Component{
 
+    componentWillMount(){
+        if(!this.props.user){
+            //未登陆, 重定向会首页
+            browserHistory.push("/");
+        }
+    }
+
     render(){
-
-        // this.props.actions.getUserList();
-        console.log(this.props.user);
-
+        
         const childStyles = {
             height : "90%",
             borderRadius : "10px",
@@ -48,7 +35,7 @@ export default class Chat extends React.Component{
                     <Interaction { ...this.props } childStyles = {childStyles} />
                 </Col>
                 <Col span={15} style={ { height : "100%"} }>
-                    <Content { ...this.props } childStyles = {childStyles} />
+                    <Content childStyles = {childStyles} />
                 </Col>
             </Row>
         </div>
