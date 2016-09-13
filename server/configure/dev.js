@@ -8,7 +8,10 @@ module.exports = {
   mongoURI : "mongodb://localhost:27017/chat",
   mongoOption : {
     db: { native_parser: true },
-    server: { poolSize: 5 },
+    server: {
+      poolSize: 5,
+      socketOptions: { keepAlive: 1 }
+    },
     replset: { rs_name: 'myReplicaSetName' },
     user: 'chat',
     pass: '123456'

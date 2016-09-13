@@ -3,7 +3,8 @@
  */
 
 import React from "react";
-import { Form, Input, Button, Checkbox, Spin } from 'antd';
+import { Form, Input, Button, Checkbox, Spin, Alert } from 'antd';
+import QueueAnim from 'rc-queue-anim';
 import { Link, browserHistory } from "react-router";
 const FormItem = Form.Item;
 
@@ -15,14 +16,14 @@ import { signIn, signUp } from "../../action/UserAction";
 class Sign extends React.Component{
 
     state = {
-        loading : !1    //控制loading框
+        loading : false    //控制loading框
     };
 
-    handleSubmit(e) {
+    handleSubmit = (e) => {
         e.preventDefault();
-        const { email, password, rePassword } = this.props.form.getFieldsValue();
+        const { nick, email, password, rePassword } = this.props.form.getFieldsValue();
 
-        this.setState({ loading : !0 });
+        this.setState({ loading : true });
 
         switch ( this.props.params.type){
             case "in" :
@@ -31,10 +32,19 @@ class Sign extends React.Component{
                 break;
             case "up" :
                 //注册
-                this.props.signUp( { email, password, rePassword } );
+                this.props.signUp( { nick, email, password, rePassword } );
                 break;
         }
-    }
+    };
+
+    handleChangeRouter = () => {
+        //重置表单
+        this.props.form.resetFields();
+        //隐藏错误提示
+        this.setState({
+            showError : false
+        });
+    };
 
     componentWillMount(){
         if(!["in", "up"].includes(this.props.params.type)){
@@ -44,22 +54,35 @@ class Sign extends React.Component{
 
 
     closeLogin(){
-        this.setState({ loading : !1 });
+        this.setState({
+            loading : false
+        });
     }
 
     componentWillReceiveProps(nextProps){
-
-        this.setState( {err : ""} );
 
         if(nextProps.loginResult.userInfo){
             //登陆成功
             this.closeLogin();
             browserHistory.push("/chat");
         }else if(nextProps.loginResult.errorMessage){
-            //登陆失败的错误信息
-            this.closeLogin();
-            this.setState( { err : nextProps.loginResult.errorMessage } );
 
+            const message = nextProps.loginResult.errorMessage;
+
+            if(this.state.messageTimestamp !== message.timestamp){
+                this.setState({
+                    messageTimestamp : message.timestamp
+                });
+
+                //登陆失败的错误信息
+                this.closeLogin();
+                this.setState({
+                    showError : true
+                });
+                this.setState({
+                    err : message.message
+                });
+            }
         }
     }
 
@@ -85,16 +108,20 @@ class Sign extends React.Component{
             </FormItem>
 
             <FormItem wrapperCol={{ span: 16, offset: 6 }}>
-                <Checkbox {...getFieldProps('remember', { initialValue: false, valuePropName: 'checked' })}>记住密码</Checkbox>
+                <Checkbox {...getFieldProps('remember', { initialValue: true, valuePropName: 'checked' })}>记住密码</Checkbox>
             </FormItem>
 
             <FormItem wrapperCol={{ span: 16, offset: 6 }}>
-                <Button type="primary" htmlType="submit">确定</Button>
-                <Link to="/sign-up" style={ {marginLeft : "20px"} }>注册新用户</Link>
+                <Button type="primary" onClick={this.handleSubmit} >登陆</Button>
+                <Link to="/sign-up" style={ {marginLeft : "20px"} } onClick={this.handleChangeRouter}>注册新用户</Link>
             </FormItem>
         </div>;
 
         Layer.up = <div>
+            <FormItem {...formItemLayout} label="昵称 :">
+                <Input placeholder="请输入昵称" {...getFieldProps('nick')}/>
+            </FormItem>
+
             <FormItem {...formItemLayout} label="邮箱 :">
                 <Input placeholder="请输入邮箱" {...getFieldProps('email')}/>
             </FormItem>
@@ -108,17 +135,30 @@ class Sign extends React.Component{
             </FormItem>
 
             <FormItem wrapperCol={{ span: 16, offset: 6 }}>
-                <Button type="primary" htmlType="submit">确定</Button>
-                <Link to="/sign-in" style={ {marginLeft : "20px"} }>已有账号,登陆</Link>
+                <Button type="primary" onClick={this.handleSubmit}>注册</Button>
+                <Link to="/sign-in" style={ {marginLeft : "20px"} } onClick={this.handleChangeRouter}>已有账号,登陆</Link>
             </FormItem>
         </div>;
 
         return <Spin size="large" spinning={this.state.loading} >
             <div style={{ margin : "120px auto", maxWidth : "480px" }}>
-                <Form horizontal onSubmit={this.handleSubmit.bind(this)}>
+                <Form horizontal>
                     { Layer[this.props.params.type] }
+
+                    <FormItem wrapperCol={{ span: 14, offset: 6 }} >
+                        <QueueAnim
+                            animConfig={[
+                        { opacity: [1, 0], translateY: [0, 50] },
+                        { opacity: [1, 0], translateY: [0, -50] }
+                      ]}>
+                            { this.state.showError ? <Alert key="a"
+                                                            description={ this.state.err }
+                                                            type="error"
+                                                            showIcon
+                            /> : null }
+                        </QueueAnim>
+                    </FormItem>
                 </Form>
-                <h3>{ this.state.err }</h3>
             </div>
         </Spin>;
     }

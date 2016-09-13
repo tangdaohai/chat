@@ -2,8 +2,8 @@
  * Created by Jerry on 16/9/3.
  */
 
+const co = require("co");
 const UserService = require("../service/user/UserService");
-const userService = new UserService();
 
 module.exports = function Socket(io){
     io.of("/chat").on("connection", (socket) => {
@@ -14,11 +14,15 @@ module.exports = function Socket(io){
         });
         
         socket.on("user/signIn", (user, callback) => {
-            callback(userService.signIn(user));
+            co(function* (){
+                callback(yield UserService.signIn(user));
+            });
         });
 
         socket.on("user/signUp", (user, callback) => {
-            callback(userService.signUp(user));
+            co(function* (){
+                callback(yield UserService.signUp(user));
+            });
         });
     });
 };

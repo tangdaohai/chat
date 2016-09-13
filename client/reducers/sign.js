@@ -20,7 +20,10 @@ export function signIn(userInfo = {}, action){
             delete result.errorMessage;
             break;
         case SIGN_IN_FAIL :
-            result.errorMessage = action.message;
+            result.errorMessage = { 
+                message : action.message,
+                timestamp : Date.now()
+            } ;
             delete result.userInfo;
     }
 

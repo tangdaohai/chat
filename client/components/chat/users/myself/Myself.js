@@ -20,7 +20,7 @@ export default class Head extends React.Component{
 
         return <QueueAnim className="my-head" delay= {500}>
             <div key = "a">
-                <img  src={ user.handImg }/>
+                <img  src={ user.handImg || "https://facebook.github.io/react/img/logo.svg"}/>
                 <div className="my-name">
                     <h5 className="name-text">{ user.nick }</h5>
                 </div>

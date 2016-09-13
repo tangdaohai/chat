@@ -19,9 +19,23 @@ const server = http.createServer(app.callback()),
 const io = require("socket.io")(server);
 require("../socket.io/Socket")(io);
 
-server.listen(port);
-server.on("error", onError);
-server.on("listening", onListening);
+//mongoDB
+const mongoose = require('mongoose');
+connect()
+    .on("error", console.error)
+    .on('disconnected', connect)
+    .once("open", () => {
+      console.log("mongo db 连接成功. 开始启动系统服务.");
+
+      //启动系统服务
+      server.listen(port);
+      server.on("error", onError);
+      server.on("listening", onListening);
+    });
+
+function connect(){
+  return mongoose.connect(configure.mongoURI, configure.mongoOption).connection;
+}
 
 /**
  * Event listener for HTTP server "error" event.

@@ -38,9 +38,7 @@ ReactDom.render(<Provider store = { store }>
         <Route path="/" component={App}>
             <IndexRedirect to="sign-in" />
             <Route path="chat" component={ Components.Chat } />
-            <Route path="sign-:type" component={ Components.Sign }></Route>
-            <Route path="sign-in" component={ Components.SignIn } />
-            <Route path="sign-up" component={ Components.SignUp } />
+            <Route path="sign-:type" component={ Components.Sign } />
             <Route path="404" component= { NotFound } />
         </Route>
     </Router>

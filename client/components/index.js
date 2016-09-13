@@ -3,6 +3,4 @@
  */
 
 export Sign from "./user/Sign";
-export SignIn from "./user/SignIn";
-export SignUp from "./user/SignUp";
 export Chat from "./chat/Chat";
