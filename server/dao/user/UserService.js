@@ -6,7 +6,6 @@ const mongoose = require("mongoose");
 //替换自身的 Promise
 mongoose.Promise = Promise;
 const co = require("co");
-const format = require("../DataFormat");
 
 const UserSchema = new mongoose.Schema({
     email: String,
@@ -37,13 +36,8 @@ const UserModel = mongoose.model("users",UserSchema);
  */
 exports.signIn = co.wrap(function*(user) {
 
-    const result = yield UserModel.findUser(user);
+    return yield UserModel.findUser(user);
 
-    if(result){
-        return format.success(result);
-    }else{
-        return format.fail("sorry... 你输如的账号或密码有错误!");
-    }
 });
 
 /**
@@ -52,16 +46,8 @@ exports.signIn = co.wrap(function*(user) {
  */
 exports.signUp = co.wrap(function*(user) {
 
-    user = new UserModel(user);
+    return yield new UserModel(user).save();
 
-    const result = yield user.save();
-
-    if(result){
-        result.password = "";
-        return format.success(result);
-    }
-
-    return format.fail("sorry... 注册失败!")
 });
 
 /**

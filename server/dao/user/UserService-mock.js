@@ -2,7 +2,7 @@
  * Created by Jerry on 16/9/6.
  */
 
-const Format = require("../DataFormat");
+const Format = require("../../configure/DataFormat");
 
 module.exports = class UserService{
 

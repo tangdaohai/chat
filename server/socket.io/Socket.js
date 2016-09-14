@@ -3,26 +3,57 @@
  */
 
 const co = require("co");
-const UserService = require("../service/user/UserService");
+const UserService = require("../dao/user/UserService");
+const format = require("../configure/DataFormat");
 
 module.exports = function Socket(io){
+
+    const  onLines = new Map();
+
     io.of("/chat").on("connection", (socket) => {
-        console.log(`有一个连接加入 ${socket}`);
-        socket.on("send", (data) =>{
-            console.log(data);
-            socket.emit("get", "服务器端发送测试");
-        });
-        
+        console.log("新的 socket 连接成功.");
+
+        //登陆
         socket.on("user/signIn", (user, callback) => {
             co(function* (){
-                callback(yield UserService.signIn(user));
+
+                const result = yield UserService.signIn(user);
+
+                if(result) {
+                    result.password = "";
+                    //新用户加入
+                    onLines.set(result.email, { socket, user : result});
+                    return callback(format.success(result));
+                }
+
+                return callback(format.fail("sorry... 你输如的账号或密码有错误!"));
             });
         });
 
+        //注册
         socket.on("user/signUp", (user, callback) => {
             co(function* (){
-                callback(yield UserService.signUp(user));
+
+                const result = yield UserService.signUp(user);
+
+                if(result){
+                    result.password = "";
+                    return callback(format.success(result));
+                }
+
+                callback(format.fail("sorry... 注册失败!"));
             });
+        });
+
+        //获取在线用户
+        socket.on("user/getOnLine", (callback) => {
+            const users = [];
+            for(let [key, value] of onLines.entries()){
+                //去除本身
+                users.push(value.user);
+            }
+
+            callback(format.success(users));
         });
     });
 };

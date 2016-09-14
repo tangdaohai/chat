@@ -6,6 +6,19 @@ import io from "../Socket";
 
 export const SIGN_IN_SUCCESS = "login-success";
 export const SIGN_IN_FAIL = "login-fail";
+export const ON_LINE_USER = "on-line-user";
+
+/**
+ * 获取在线用户
+ * @param users
+ * @returns {{type: string, users: *}}
+ */
+export function getOnLine(users){
+    return {
+        type : ON_LINE_USER,
+        users
+    }
+}
 
 /**
  * 登陆
