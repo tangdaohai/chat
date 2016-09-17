@@ -12,7 +12,7 @@ export default class Interaction extends React.Component{
 
         return <div style={ { ...this.props.childStyles} } >
             <Myself />
-            <UserList {...this.props} />
+            <UserList/>
         </div>
     }
 

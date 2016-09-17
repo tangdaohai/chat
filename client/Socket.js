@@ -3,7 +3,9 @@
  */
 import Socket from "socket.io-client";
 
-export default getSocket();
+const io = getSocket();
+
+export default io;
 
 /**
  * 建立 socket 连接. 返回连接后的对象
@@ -12,7 +14,7 @@ export default getSocket();
 function getSocket(){
 
     const io = Socket('http://localhost:3003/chat',{
-        reconnection : !0,
+        reconnection : true,
         reconnectionDelay : 1000
     });
 
@@ -20,13 +22,7 @@ function getSocket(){
         console.log("socket. 连接成功");
     });
 
-    // io.on("get", (data) => {
-    //     console.log(data);
-    // });
-    //
-    // io.emit("login", {email : "1@qq.com", password : "123456"}, (user) =>{
-    //     console.log(user);
-    // });
-    
+    require("./socketMonitor").montiort(io);
+
     return io;
 }

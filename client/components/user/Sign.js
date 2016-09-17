@@ -15,24 +15,28 @@ import { signIn, signUp } from "../../action/UserAction";
 @connect( state => ({ loginResult : state.signIn }), dispatch => ({ ...bindActionCreators( { signIn, signUp } , dispatch) }) )
 class Sign extends React.Component{
 
-    state = {
-        loading : false    //控制loading框
-    };
+    constructor(props){
+        super(props);
+        this.state = {
+            loading : false    //控制loading框
+        };
+    }
 
     handleSubmit = (e) => {
         e.preventDefault();
-        const { nick, email, password, rePassword } = this.props.form.getFieldsValue();
 
         this.setState({ loading : true });
 
         switch ( this.props.params.type){
             case "in" :
                 //登陆
+                let { email, password } = this.props.form.getFieldsValue();
                 this.props.signIn({ email, password });
                 break;
             case "up" :
                 //注册
-                this.props.signUp( { nick, email, password, rePassword } );
+                let { nick, registerEmail, registerPassword, rePassword } = this.props.form.getFieldsValue();
+                this.props.signUp( { nick, email : registerEmail, password : registerPassword, rePassword } );
                 break;
         }
     };
@@ -123,11 +127,11 @@ class Sign extends React.Component{
             </FormItem>
 
             <FormItem {...formItemLayout} label="邮箱 :">
-                <Input placeholder="请输入邮箱" {...getFieldProps('email')}/>
+                <Input placeholder="请输入邮箱" {...getFieldProps('registerEmail')}/>
             </FormItem>
 
             <FormItem {...formItemLayout} label="密码 :">
-                <Input type="password" {...getFieldProps('password', { initialValue: '' })} placeholder="请输入密码" />
+                <Input type="password" {...getFieldProps('registerPassword', { initialValue: '' })} placeholder="请输入密码" />
             </FormItem>
 
             <FormItem {...formItemLayout} label="确认密码 :">

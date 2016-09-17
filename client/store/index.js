@@ -11,7 +11,11 @@ import logger from 'redux-diff-logger';
 //引入所有的 reducer
 import * as reducers from "../reducers";
 
-export default ( () => {
+export default store;
+
+const store = create();
+
+function create(){
     //将 reducer, react-router 与 redux 绑定
     const reducer = combineReducers({
         ...reducers,
@@ -34,4 +38,4 @@ export default ( () => {
     }
 
     return store;
-} )();
+}

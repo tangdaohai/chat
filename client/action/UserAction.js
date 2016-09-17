@@ -7,16 +7,29 @@ import io from "../Socket";
 export const SIGN_IN_SUCCESS = "login-success";
 export const SIGN_IN_FAIL = "login-fail";
 export const ON_LINE_USER = "on-line-user";
+export const NEW_USER = "new-user";
 
 /**
  * 获取在线用户
- * @param users
- * @returns {{type: string, users: *}}
+ * @returns {function()}
  */
-export function getOnLine(users){
+export function getOnLine(){
+    return dispatch => {
+        io.emit("user/getOnLine", (result) => {
+            if(result.success){
+                return dispatch({
+                    type : ON_LINE_USER,
+                    users : result.content
+                });
+            }
+        });
+    };
+}
+
+export function newUser(newUser) {
     return {
-        type : ON_LINE_USER,
-        users
+        type : NEW_USER,
+        newUser
     }
 }
 

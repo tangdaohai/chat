@@ -20,9 +20,12 @@ module.exports = function Socket(io){
                 const result = yield UserService.signIn(user);
 
                 if(result) {
-                    result.password = "";
+                    delete result.password;
+                    socket.user = result;
                     //新用户加入
-                    onLines.set(result.email, { socket, user : result});
+                    onLines.set(result["_id"], { socket, user : result});
+                    //发布上线通知
+                    socket.broadcast.emit("new user", { newUser : result});
                     return callback(format.success(result));
                 }
 
@@ -47,13 +50,31 @@ module.exports = function Socket(io){
 
         //获取在线用户
         socket.on("user/getOnLine", (callback) => {
+
+            callback(format.success(getOnLines()));
+        });
+
+        /**
+         * 去除本身
+         * @returns {Array}
+         */
+        const getOnLines  = () => {
             const users = [];
             for(let [key, value] of onLines.entries()){
-                //去除本身
-                users.push(value.user);
+                if(key != value["_id"]){
+                    //去除本身
+                    users.push(value.user);
+                }
             }
+            return users;
+        };
 
-            callback(format.success(users));
-        });
+        /**
+         * 用户退出
+         */
+        const logout = () => {
+            onLines.delete(socket.user["_id"]);
+            socket.broadcast.emit("user logout", { user : socket.user});
+        }
     });
 };
