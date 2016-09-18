@@ -10,7 +10,7 @@ import { SIGN_IN_SUCCESS, SIGN_IN_FAIL } from "../action/UserAction";
  * @param action
  * @returns {*}
  */
-export function signIn(userInfo = {}, action){
+export default function signIn(userInfo = {}, action){
 
     const result = Object.assign( {}, userInfo);
 
@@ -23,7 +23,7 @@ export function signIn(userInfo = {}, action){
             result.errorMessage = { 
                 message : action.message,
                 timestamp : Date.now()
-            } ;
+            };
             delete result.userInfo;
     }
 

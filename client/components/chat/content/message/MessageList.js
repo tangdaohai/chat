@@ -9,7 +9,7 @@ import "./message.css";
 
 import { connect } from "react-redux";
 
-@connect( state => ({ messageList : state.message.current.list }))
+@connect( state => ({ messageList : state.current.list }))
 export default class MessageList extends React.Component{
 
     render(){

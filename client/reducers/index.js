@@ -2,6 +2,7 @@
  * Created by Jerry on 16/8/10.
  */
 
-export message from "./message";
+export current from "./current";
+export messageMap from "./messageMap";
 export onLines from "./onLines";
-export { signIn } from "./sign";
+export signIn from "./sign";

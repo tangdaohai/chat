@@ -23,7 +23,7 @@ class App extends React.Component{
 
     render() {
 
-        return <div className="absolute-center shadow">
+        return <div className="absolute-center shadow app">
             { this.props.children }
         </div>
     }

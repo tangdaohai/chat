@@ -22,7 +22,7 @@ function getSocket(){
         console.log("socket. 连接成功");
     });
 
-    require("./socketMonitor").montiort(io);
+    require("./socketMonitor").socketMonitor(io);
 
     return io;
 }

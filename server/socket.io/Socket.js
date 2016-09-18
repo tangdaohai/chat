@@ -8,6 +8,7 @@ const format = require("../configure/DataFormat");
 
 module.exports = function Socket(io){
 
+    //在线的用户列表
     const  onLines = new Map();
 
     io.of("/chat").on("connection", (socket) => {
@@ -23,9 +24,9 @@ module.exports = function Socket(io){
                     delete result.password;
                     socket.user = result;
                     //新用户加入
-                    onLines.set(result["_id"], { socket, user : result});
+                    onLines.set(result._id.toString(), socket);
                     //发布上线通知
-                    socket.broadcast.emit("new user", { newUser : result});
+                    socket.broadcast.emit("add user", format.success(result));
                     return callback(format.success(result));
                 }
 
@@ -51,18 +52,28 @@ module.exports = function Socket(io){
         //获取在线用户
         socket.on("user/getOnLine", (callback) => {
 
-            callback(format.success(getOnLines()));
+            callback(format.success(getOnLines(socket.user, onLines)));
         });
+        
+        //用户发送信息
+        socket.on("send message", (data) => {
+            let toSocket = onLines.get(data.to);
+            if(toSocket){
+                toSocket.emit("new message", format.success(data));
+            }
+        });
+        
+        socket.on("disconnect", () => logout());
 
         /**
          * 去除本身
          * @returns {Array}
          */
-        const getOnLines  = () => {
+        const getOnLines  = (currentUser = {_id: ""}, onLines) => {
             const users = [];
             for(let [key, value] of onLines.entries()){
-                if(key != value["_id"]){
-                    //去除本身
+                //去除当前用户
+                if(key != currentUser._id.toString()){
                     users.push(value.user);
                 }
             }
@@ -73,8 +84,11 @@ module.exports = function Socket(io){
          * 用户退出
          */
         const logout = () => {
-            onLines.delete(socket.user["_id"]);
-            socket.broadcast.emit("user logout", { user : socket.user});
+            //如果用户有登陆, 删除这个用户
+            if(socket.user){
+                onLines.delete(socket.user["_id"]);
+                socket.broadcast.emit("user leave", format.success(socket.user));
+            }
         }
     });
 };

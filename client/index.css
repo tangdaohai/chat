@@ -4,17 +4,20 @@ body{
 }
 
 .absolute-center{
-    width: 60%;
-    min-width: 800px;
-    min-height: 480px;
-    max-height: 600px;
-    height: 90%;
     margin: auto;
     position: absolute;
     top: 0;
     left: 0;
     bottom: 0;
     right: 0;
+}
+
+.app{
+    width: 60%;
+    min-width: 800px;
+    min-height: 480px;
+    max-height: 600px;
+    height: 90%;
     background-color: #fff;
     border-radius: 15px;
     padding-top: 40px;

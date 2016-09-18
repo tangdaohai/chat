@@ -7,7 +7,21 @@ import io from "../Socket";
 export const SIGN_IN_SUCCESS = "login-success";
 export const SIGN_IN_FAIL = "login-fail";
 export const ON_LINE_USER = "on-line-user";
-export const NEW_USER = "new-user";
+export const ADD_USER = "new-user";
+export const USER_LEAVE = "user-leave";
+export const CHANGE_CURRENT = "change-current";
+
+/**
+ * 变更当前聊天对象
+ * @param current
+ */
+export function changeCurrent(current){
+    
+    return {
+        type : CHANGE_CURRENT,
+        current
+    }
+}
 
 /**
  * 获取在线用户
@@ -26,10 +40,27 @@ export function getOnLine(){
     };
 }
 
-export function newUser(newUser) {
+/**
+ * 新用户上线
+ * @param user
+ * @returns {{type: string, newUser: *}}
+ */
+export function addUser(user) {
     return {
-        type : NEW_USER,
-        newUser
+        type : ADD_USER,
+        user
+    }
+}
+
+/**
+ * 用户离开
+ * @param user
+ * @returns {{type: string, user: *}}
+ */
+export function userLeave(user){
+    return {
+        type : USER_LEAVE,
+        user
     }
 }
 

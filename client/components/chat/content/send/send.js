@@ -9,7 +9,8 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import * as SendAction from "../../../../action/SendAction";
 
-@connect(null, (dispatch) => ( { ...bindActionCreators( SendAction, dispatch) } ))
+@connect(state => ({user: state.signIn.userInfo, current: state.current}),
+    (dispatch) => ( { ...bindActionCreators( SendAction, dispatch) } ))
 export default class Send extends React.Component{
 
     handleKeyUp = (e) => {
@@ -17,14 +18,16 @@ export default class Send extends React.Component{
             return;
         }
 
-        const value = e.target.value;
+        const value = e.target.value.replace(/\n$/, "");
         e.target.value = "";
 
         this.props.send({
+            withUser: this.props.current.to,
+            from: this.props.user._id,
             isMyself : true,
             time : new Date().toLocaleString(),
             text : value,
-            sender : "省略两个字"
+            sender : this.props.user.nick
         });
     };
 

@@ -7,16 +7,28 @@ import React from "react";
 import MessageList from "./message/MessageList";
 import UserName from "./user-name/UserName";
 import Send from "./send/Send";
+import {connect} from "react-redux";
 
-export default class Content extends React.Component{
+@connect(state => ({current: state.current}))
+export default class Content extends React.Component {
 
     render() {
 
-        return <div style={ this.props.childStyles } >
-            <UserName userName = "省略两个字." />
-            <MessageList/>
-            <Send/>
-        </div>
+        let currentUser = this.props.current.to;
+        
+        if(currentUser){
+            return <div style={ this.props.childStyles }>
+                <UserName userName={currentUser.nick}/>
+                <MessageList/>
+                <Send/>
+            </div>
+        }else{
+            return <div style={ this.props.childStyles }>
+                <div className="absolute-center" style={ {width : 220, height: 80} }>
+                    <p>从左侧列表中选择一个人开始聊天吧 😁</p>
+                </div>
+            </div>
+        }
     }
 
 }

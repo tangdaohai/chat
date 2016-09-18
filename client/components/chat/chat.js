@@ -32,7 +32,7 @@ export default class Chat extends React.Component{
         return <div style={ { height : "100%"} }>
             <Row type="flex" justify="center" gutter={16} style={ { height : "100%"} }>
                 <Col span={6} style={ { height : "100%"} }>
-                    <Interaction { ...this.props } childStyles = {childStyles} />
+                    <Interaction childStyles = {childStyles} />
                 </Col>
                 <Col span={15} style={ { height : "100%"} }>
                     <Content childStyles = {childStyles} />

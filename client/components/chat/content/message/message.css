@@ -105,6 +105,12 @@
     position: absolute;
 }
 
+.message-left .text{
+    float: left;
+    word-break: break-all;
+    word-wrap: break-word;
+}
+
 .message-right .text{
     float: right;
     background-color: #5cde5c;
