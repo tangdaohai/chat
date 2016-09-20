@@ -7,10 +7,10 @@ import "./send.css";
 
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import * as SendAction from "../../../../action/SendAction";
+import * as MessageAction from "../../../../action/MessageAction";
 
 @connect(state => ({user: state.signIn.userInfo, current: state.current}),
-    (dispatch) => ( { ...bindActionCreators( SendAction, dispatch) } ))
+    (dispatch) => ( { ...bindActionCreators( MessageAction, dispatch) } ))
 export default class Send extends React.Component{
 
     handleKeyUp = (e) => {

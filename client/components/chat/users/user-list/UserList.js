@@ -13,11 +13,11 @@ import "./user.css";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { getOnLine, changeCurrent } from "../../../../action/UserAction";
+import { read } from "../../../../action/MessageAction";
 
-@connect( state => {
-    const { onLines, messageMap, signIn} = state;
-    return { onLines, messageMap, user: signIn.userInfo };
-}, dispatch => ({ ...bindActionCreators( { getOnLine, changeCurrent } , dispatch) }) )
+@connect( state => (
+    { onLines: state.onLines, messageMap: state.messageMap, user: state.signIn.userInfo }
+), dispatch => ({ ...bindActionCreators( { getOnLine, changeCurrent, read } , dispatch) }) )
 export default class UserList extends React.Component{
 
     constructor(props){
@@ -30,10 +30,14 @@ export default class UserList extends React.Component{
 
     handleUserClick = (user) =>{
         return () => {
+            //更改当前聊天对象
             this.props.changeCurrent({
                 to: user,
                 list: this.props.messageMap[user._id] || []
             });
+            
+            //去除当前未读提示
+            this.props.read(user._id);
         }
     };
 

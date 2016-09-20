@@ -2,7 +2,7 @@
  * Created by Jerry on 16/9/18.
  */
 
-import { SEND_MESSAGE } from "../action/SendAction";
+import { SEND_MESSAGE } from "../action/MessageAction";
 import { CHANGE_CURRENT } from "../action/UserAction";
 export default function current(current = {to: "", list: []}, action){
 

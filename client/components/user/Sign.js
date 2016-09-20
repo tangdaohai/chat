@@ -25,20 +25,29 @@ class Sign extends React.Component{
     handleSubmit = (e) => {
         e.preventDefault();
 
-        this.setState({ loading : true });
+        this.props.form.validateFields((errors, values) => {
+            if (!!errors) {
+                console.log('Errors in form!!!');
+                return;
+            }
+            console.log('Submit!!!');
+            console.log(values);
+        });
 
-        switch ( this.props.params.type){
-            case "in" :
-                //登陆
-                let { email, password } = this.props.form.getFieldsValue();
-                this.props.signIn({ email, password });
-                break;
-            case "up" :
-                //注册
-                let { nick, registerEmail, registerPassword, rePassword } = this.props.form.getFieldsValue();
-                this.props.signUp( { nick, email : registerEmail, password : registerPassword, rePassword } );
-                break;
-        }
+        // this.setState({ loading : true });
+        //
+        // switch ( this.props.params.type){
+        //     case "in" :
+        //         //登陆
+        //         let { email, password } = this.props.form.getFieldsValue();
+        //         this.props.signIn({ email, password });
+        //         break;
+        //     case "up" :
+        //         //注册
+        //         let { nick, registerEmail, registerPassword, rePassword } = this.props.form.getFieldsValue();
+        //         this.props.signUp( { nick, email : registerEmail, password : registerPassword, rePassword } );
+        //         break;
+        // }
     };
 
     handleChangeRouter = () => {
@@ -93,11 +102,25 @@ class Sign extends React.Component{
 
     render() {
 
-        const { getFieldProps } = this.props.form;
+        const { getFieldProps, getFieldError, isFieldValidating } = this.props.form;
         const formItemLayout = {
             labelCol: { span: 6 },
             wrapperCol: { span: 14 }
         };
+
+        const emailProps = getFieldProps('registerEmail', {
+            validate: [{
+                rules: [
+                    { required: true, message: '注册邮箱必须要输入' }
+                ],
+                trigger: 'onBlur'
+            }, {
+                rules: [
+                    { type: 'email', message: '请输入正确的邮箱地址' }
+                ],
+                trigger: ['onBlur', 'onChange']
+            }]
+        });
 
         const Layer = {};
 
@@ -122,12 +145,16 @@ class Sign extends React.Component{
         </div>;
 
         Layer.up = <div>
-            <FormItem {...formItemLayout} label="昵称 :">
+            <FormItem {...formItemLayout}
+                label="昵称 :"
+                hasFeedback
+                help={isFieldValidating('name') ? '校验中...' : (getFieldError('name') || []).join(', ')}
+            >
                 <Input placeholder="请输入昵称" {...getFieldProps('nick')}/>
             </FormItem>
 
-            <FormItem {...formItemLayout} label="邮箱 :">
-                <Input placeholder="请输入邮箱" {...getFieldProps('registerEmail')}/>
+            <FormItem {...formItemLayout} label="邮箱 :" hasFeedback>
+                <Input placeholder="请输入邮箱" {...emailProps}/>
             </FormItem>
 
             <FormItem {...formItemLayout} label="密码 :">

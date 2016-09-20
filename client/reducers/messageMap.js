@@ -2,7 +2,7 @@
  * Created by Jerry on 16/8/26.
  */
 
-import { SEND_MESSAGE } from "../action/SendAction";
+import { SEND_MESSAGE } from "../action/MessageAction";
 
 export default function messageMap(messageMap = {}, action){
 
