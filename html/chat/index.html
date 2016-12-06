@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<title>chat</title>
+	<link rel="stylesheet" type="text/css" href="./css/basic.css">
+	<link rel="stylesheet" type="text/css" href="./css/font-awesome.css">
+</head>
+<body>
+	<div class="container flex f-c">
+		<div class="main flex">
+			<!-- 列表功能区 -->
+			<div class="list-container flex">
+				<!-- 头部菜单 -->
+				<div class="nav-contatiner flex f-c">
+					<div>
+						<i class="fa fa-bars fa-lg" aria-hidden="true"></i>
+					</div>
+					<div>
+						<i class="fa fa-search fa-lg" aria-hidden="true"></i>
+						<i class="fa fa-ellipsis-v fa-lg" aria-hidden="true"></i>
+					</div>
+				</div>
+				<!-- 用户列表 -->
+				<div class="user-list">
+					<ul>
+						<li class="flex">
+							<!-- 头像 -->
+							<div class="img-contatiner flex">
+								<img src="https://d13yacurqjgara.cloudfront.net/users/60166/avatars/mini/yogaLogo.png?1390870645">
+							</div>
+							<!-- 名字与内容 -->
+							<div class="name-content flex">
+								<div class="no-wrap">John Smith</div>
+								<div class="no-wrap">Let's grab some coffee and tea, so keep easy</div>
+							</div>
+						</li>
+						<li class="flex">
+							<!-- 头像 -->
+							<div class="img-contatiner flex">
+								<img src="https://d13yacurqjgara.cloudfront.net/users/638582/avatars/mini/69902c41dd41b2dbde4ca275b2dde133.png?1422938485">
+							</div>
+							<!-- 名字与内容 -->
+							<div class="name-content flex">
+								<div class="no-wrap">Mike Jones</div>
+								<div class="no-wrap">你好呀</div>
+							</div>
+						</li>
+						<li class="flex active">
+							<!-- 头像 -->
+							<div class="img-contatiner flex">
+								<img src="https://d13yacurqjgara.cloudfront.net/users/1312609/avatars/mini/15e123a507b4648a058e71d4539cc17a.jpg?1470333246">
+							</div>
+							<!-- 名字与内容 -->
+							<div class="name-content flex">
+								<div class="no-wrap">Allison Grayce</div>
+								<div class="no-wrap">Let's grab some coffee and tea, so keep easy</div>
+							</div>
+						</li>
+						<li class="flex">
+							<!-- 头像 -->
+							<div class="img-contatiner flex">
+								<img src="https://d13yacurqjgara.cloudfront.net/users/63973/avatars/small/9b52fdc306308edaaa03aacaaa173c8c.png?1479084380">
+							</div>
+							<!-- 名字与内容 -->
+							<div class="name-content flex">
+								<div class="no-wrap">Nikki Clark</div>
+								<div class="no-wrap">Let's grab some coffee and tea, so keep easy</div>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<!-- 对话功能区域 -->
+			<div class="dialogue-container flex">
+				<!-- 顶部显示 与 菜单 -->
+				<div class="header-nav flex">
+					<!-- 头像 -->
+					<div class="flex avatar">
+						<div class="img-contatiner">
+							<img src="https://d13yacurqjgara.cloudfront.net/users/1312609/avatars/mini/15e123a507b4648a058e71d4539cc17a.jpg?1470333246">
+						</div>
+						<span class="name">Allison Grayce</span>
+					</div>
+					<!-- 功能按钮 -->
+					<div class="menu-container">
+						<i class="fa fa-video-camera fa-lg" aria-hidden="true"></i>
+						<i class="fa fa-expand fa-lg" aria-hidden="true"></i>
+						<i class="fa fa-ellipsis-v fa-lg" aria-hidden="true"></i>
+					</div>
+				</div>
+				<!-- 对话列表区域 -->
+				<div class="dialogue flex">
+
+					<div class="dialogue-right flex">
+						<div class="img-contatiner">
+							<img src="https://d13yacurqjgara.cloudfront.net/users/623359/avatars/mini/9f913570d43869d5d3efb89ac684093b.png?1442219999">
+						</div>
+						<span class="arrow"></span>
+						<div class="content flex">
+							<span>这就像是一群兄弟分财产，设定flex-grow值后，如果大家都守规矩，那财产划分是正确无误的。但是一旦有人贪心多拿了一些，其他的人只能平分他拿剩下的财产了。这样的方案对个人“道德”要求太高，容易出问题，这时候每个人都要用width: 100%来申明自己必须100%拿到自己应得的财产，这样财产划分就没有问题了。</span>
+						</div>
+					</div>
+
+					<div class="dialogue-left flex">
+						<div class="img-contatiner">
+							<img src="https://d13yacurqjgara.cloudfront.net/users/1312609/avatars/mini/15e123a507b4648a058e71d4539cc17a.jpg?1470333246">
+						</div>
+						<span class="arrow"></span>
+						<div class="content flex">
+							<span>这就像是一群兄弟分财产，设定flex-grow值后，如果大家都守规矩，那财产划分是正确无误的。但是一旦有人贪心多拿了一些，其他的人只能平分他拿剩下的财产了。这样的方案对个人“道德”要求太高，容易出问题，这时候每个人都要用width: 100%来申明自己必须100%拿到自己应得的财产，这样财产划分就没有问题了。</span>
+						</div>
+					</div>
+
+					<div class="dialogue-right flex">
+						<div class="img-contatiner">
+							<img src="https://d13yacurqjgara.cloudfront.net/users/623359/avatars/mini/9f913570d43869d5d3efb89ac684093b.png?1442219999">
+						</div>
+						<span class="arrow"></span>
+						<div class="content flex">
+							<span>I'm back in town…you wanna meet-up for coffee?</span>
+						</div>
+					</div>
+
+					<div class="dialogue-left flex">
+						<div class="img-contatiner">
+							<img src="https://d13yacurqjgara.cloudfront.net/users/1312609/avatars/mini/15e123a507b4648a058e71d4539cc17a.jpg?1470333246">
+						</div>
+						<span class="arrow"></span>
+						<div class="content flex">
+							<span>Yeah that sounds great! Have a new project to run by you.</span>
+						</div>
+					</div>
+
+				</div>
+				<!-- 编辑发送区 -->
+				<div class="edit-send flex">
+					<div class="send-menu">
+						<i class="fa fa-paperclip fa-lg" aria-hidden="true"></i>
+						<i class="fa fa-smile-o fa-lg" aria-hidden="true"></i>
+					</div>
+					<input placeholder="Leave a comment…" class="edit-text">
+					</input>
+					<div class="send-btn">
+						<i class="fa fa-paper-plane-o fa-lg" aria-hidden="true"></i>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
