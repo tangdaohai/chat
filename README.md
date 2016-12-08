@@ -1,4 +1,7 @@
 #Chat
+
+> 开发中。
+
 node, koa2 + socket.io + gulp + React
 
 #安装  node >= 6.0
