@@ -58,7 +58,7 @@ app.use( convert(logger()) );
 const index = require("./routes/index");
 
 //配置路由
-router.use("*", index.routes(), index.allowedMethods());
+router.use("/react", index.routes(), index.allowedMethods());
 app.use(router.routes());
 app.use(router.allowedMethods());
 

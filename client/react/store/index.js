@@ -32,7 +32,7 @@ function create() {
     if (module.hot) {
         // Enable Webpack hot module replacement for reducers
         module.hot.accept('../reducers', () => {
-            const nextReducer = require('../reducers');
+            const nextReducer = require('../reducers/index');
             store.replaceReducer(nextReducer(store.asyncReducers));
             // store.replaceReducer(combineReducers(nextReducer));
         })

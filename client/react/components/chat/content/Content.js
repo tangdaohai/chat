@@ -6,7 +6,7 @@ import React from "react";
 
 import MessageList from "./message/MessageList";
 import UserName from "./user-name/UserName";
-import Send from "./send/Send";
+import Send from "./send/send";
 import {connect} from "react-redux";
 
 @connect(state => ({current: state.current}))

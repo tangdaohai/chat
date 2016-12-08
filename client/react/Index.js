@@ -13,7 +13,7 @@ import * as Components from "./components";
 import store from "./store";
 
 import "./index.css";
-import "antd/dist/antd.css"
+import "../../node_modules/antd/dist/antd.css"
 
 //路由生成规则, 与 redux 结合.
 const history = syncHistoryWithStore(browserHistory, store);
@@ -35,11 +35,11 @@ const NotFound = () =>  <div>
 
 ReactDom.render(<Provider store = { store }>
     <Router history = {history}>
-        <Route path="/" component={App}>
+        <Route path="/react" component={App}>
             <IndexRedirect to="sign-in" />
             <Route path="chat" component={ Components.Chat } />
             <Route path="sign-:type" component={ Components.Sign } />
-            <Route path="404" component= { NotFound } />
+            <Route path="*" component= { NotFound } />
         </Route>
     </Router>
 </Provider>, document.querySelector("#main"));
