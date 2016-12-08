@@ -22,17 +22,26 @@
     position: relative;
 }
 
+.login-container > div{
+    position: relative;
+}
+
+
 .switch-icon{
     width: 45px;
     height: 45px;
     color: #fff;
-    background: #e72564;
+    background-color: #e72564;
     border-radius: 50%;
     z-index: 100;
-
+    transition:transform .5s;
     position: absolute;
-    margin-top: -100px;
-    margin-left: 195px;
+    left: 365px;
+    top: 20px;
+}
+
+.switch-icon:hover{
+    transform: rotate(360deg);
 }
 
 .login{
@@ -49,7 +58,7 @@
     -ms-flex-align: center;
     -ms-grid-row-align: center;
     align-items: center;
-    position: absolute;
+    /*position: absolute;*/
 }
 
 .login .title{
