@@ -1,11 +1,11 @@
 
-.login-container .title{
+.index-container .title{
     font-size: 22px;
     text-align: center;
     margin-top: 15px;
 }
 
-.login-container .btn{
+.index-container .btn{
     width: 100%;
     height: 40px;
     margin-top: 25px;
@@ -14,7 +14,7 @@
     font-size: 14px;
 }
 
-.login-container{
+.index-container{
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
     -ms-flex-direction: column;
@@ -22,21 +22,41 @@
     position: relative;
 }
 
-.login-container > div{
+.index-container > div{
     position: relative;
+    -webkit-animation: bounceInLeft 1s ease;
     animation: bounceInLeft 1s ease;
+}
+
+@-webkit-keyframes bounceInLeft{
+    0%{
+        margin-left: -1000px;
+        opacity: 0;
+        -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+    }
+
+    100%{
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+        margin-left: 0;
+        opacity: 1;
+        -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+    }
 }
 
 @keyframes bounceInLeft{
     0%{
         margin-left: -1000px;
         opacity: 0;
+        -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
     }
 
     100%{
+        -webkit-transform: rotate(360deg);
         transform: rotate(360deg);
         margin-left: 0;
         opacity: 1;
+        -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
     }
 }
 
@@ -52,38 +72,57 @@
     position: absolute;
     left: 365px;
     top: 25px;
-    transition:transform .5s;
+    -webkit-transition: -webkit-transform .5s;
+    transition: -webkit-transform .5s;
+    transition: transform .5s;
+    transition:transform .5s, -webkit-transform .5s;
+}
+
+.register-switch-icon{
+    color: #e72564;
+    background-color: #fff;
+}
+
+.register-switch-icon > i{
+    transform: rotate(45deg);
 }
 
 .switch-icon:hover{
+    -webkit-transform: rotateY(180deg);
     transform: rotateY(180deg);
 }
 
 .switch-icon:hover > i, .switch-icon > i:hover{
     opacity: 0;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
 }
 
 .switch-icon > i{
     opacity: 1;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+    -webkit-transition: opacity .1s .4s;
     transition: opacity .1s .4s;
 }
 
 .switch-icon span{
     opacity: 0;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
     position: absolute;
+    -webkit-transform: rotateY(180deg);
     transform: rotateY(180deg);
 }
 
 .switch-icon:hover > span, .switch-icon > span:hover{
+    -webkit-transition: opacity .50ms .4s;
     transition: opacity .50ms .4s;
     opacity: 1;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
 }
 
-.login{
+.form-box{
     width: 360px;
     height: 300px;
     box-shadow: 0 10px 12px #d9dee2;
-    background-color: #fff;
     padding: 0 15px;
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
@@ -93,6 +132,11 @@
     -ms-flex-align: center;
     -ms-grid-row-align: center;
     align-items: center;
+}
+
+.login{
+    height: 300px;
+    background-color: #fff;
 }
 
 .login .title{
@@ -164,23 +208,9 @@
 }
 
 .register{
-    width: 370px;
     height: 290px;
     box-shadow: 0 10px 12px #d9dee2;
     background-color: #e72564;
-    padding: 0 15px;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    -ms-flex-direction: column;
-    flex-direction: column;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    -ms-grid-row-align: center;
-    align-items: center;
-
-    position: absolute;
-
-    opacity: 0;
 }
 
 .register .title{

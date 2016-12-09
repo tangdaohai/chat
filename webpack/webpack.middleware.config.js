@@ -12,7 +12,8 @@ const basic = {
     entry: {
         index: [
             "webpack-hot-middleware/client",
-            "../client/react/Index.js"
+            // "../client/reactjs/Index.js"
+            "../client/react/app.js"
         ]
     },
     output: {

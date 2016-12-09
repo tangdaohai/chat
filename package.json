@@ -46,6 +46,7 @@
     "webpack-hot-middleware": "^2.12.2"
   },
   "scripts": {
+    "start": "gulp start",
     "dev": "webpack-dev-server --history-api-fallback --inline-source-map --port 8000 --devtool eval --progress --colors --hot --content-base server/public"
   }
 }

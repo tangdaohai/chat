@@ -77,7 +77,7 @@ class Sign extends React.Component{
         if(nextProps.loginResult.userInfo){
             //登陆成功
             this.closeLogin();
-            browserHistory.push("/chat");
+            browserHistory.push("/react/chat");
         }else if(nextProps.loginResult.errorMessage){
 
             const message = nextProps.loginResult.errorMessage;
@@ -140,7 +140,7 @@ class Sign extends React.Component{
 
             <FormItem wrapperCol={{ span: 16, offset: 6 }}>
                 <Button type="primary" onClick={this.handleSubmit} >登陆</Button>
-                <Link to="/sign-up" style={ {marginLeft : "20px"} } onClick={this.handleChangeRouter}>注册新用户</Link>
+                <Link to="sign-up" style={ {marginLeft : "20px"} } onClick={this.handleChangeRouter}>注册新用户</Link>
             </FormItem>
         </div>;
 
@@ -167,7 +167,7 @@ class Sign extends React.Component{
 
             <FormItem wrapperCol={{ span: 16, offset: 6 }}>
                 <Button type="primary" onClick={this.handleSubmit}>注册</Button>
-                <Link to="/sign-in" style={ {marginLeft : "20px"} } onClick={this.handleChangeRouter}>已有账号,登陆</Link>
+                <Link to="sign-in" style={ {marginLeft : "20px"} } onClick={this.handleChangeRouter}>已有账号,登陆</Link>
             </FormItem>
         </div>;
 
