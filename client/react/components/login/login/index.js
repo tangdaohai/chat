@@ -7,9 +7,20 @@ import {browserHistory} from "react-router";
 import SwitchIcon from "../switch-icon";
 import "./login.css";
 
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
+import { login } from "../../../action/UserAction";
+
+@connect( state => ({ user : state.user }), dispatch => ({ ...bindActionCreators( { login } , dispatch) }) )
 export default class Login extends React.Component {
 
+
+
     toChat() {
+        this.props.login({
+            user: "123",
+            password: "123"
+        });
         browserHistory.push("/react/chat");
     }
 
@@ -24,7 +35,7 @@ export default class Login extends React.Component {
                     <input id="remember-me-box" type="checkbox" className="remember-me-box"/>
                     <label htmlFor="remember-me-box">Remember me</label>
                 </div>
-                <button className="btn" onClick={ this.toChat }>SUBMIT</button>
+                <button className="btn" onClick={ this.toChat.bind(this) }>SUBMIT</button>
             </div>
         </div>
     }
