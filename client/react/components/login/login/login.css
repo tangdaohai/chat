@@ -1,0 +1,72 @@
+.login{
+    height: 300px;
+    background-color: #fff;
+}
+
+.login .title{
+    color: #465163;
+}
+
+.login .remember-me{
+    -ms-flex-item-align: start;
+    align-self: flex-start;
+    margin-top: 25px;
+}
+
+.login .remember-me{
+    color: #a9acbf;
+}
+
+.login .remember-me-box{
+    width: 0;
+    height: 0;
+    display: none;
+}
+
+.login .remember-me-box + label{
+    font-size: 13px;
+    padding-left: 22px;
+    cursor: pointer;
+    position: relative;
+}
+
+.login .remember-me-box:checked + label:before{
+    left: 1px;
+    border-right: 2px solid #e72564;
+    border-bottom: 2px solid #e72564;
+}
+
+.login .remember-me-box + label:before{
+    width: 5px;
+    height: 8px;
+    z-index: 1;
+    left: -12px;
+    margin-top: 3px;
+
+    -webkit-transform: rotateZ(45deg);
+
+    transform: rotateZ(45deg);
+    -webkit-transform-origin: 100% 100%;
+    transform-origin: 100% 100%;
+    -webkit-transition: border .25s, background-color .25s, width .2s .1s, height .2s .1s, top .2s .1s, left .2s .1s;
+    transition: border .25s, background-color .25s, width .2s .1s, height .2s .1s, top .2s .1s, left .2s .1s;
+}
+
+.login .remember-me-box + label:after{
+    width: 16px;
+    height: 16px;
+    background-color: #fff;
+    border: 1px solid #a9acbf;
+    border-radius: 4px;
+    left:0;
+}
+
+.login .remember-me-box + label:before, .login .remember-me-box + label:after{
+    content: '';
+    position: absolute;
+}
+
+.login .btn{
+    color: #fff;
+    background-color: #e72564;
+}

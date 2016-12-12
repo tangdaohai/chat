@@ -1,0 +1,33 @@
+.register{
+    height: 290px;
+    box-shadow: 0 10px 12px #d9dee2;
+    background-color: #e72564;
+}
+
+.register .title{
+    color: #fff;
+}
+
+.register .input{
+    color: #fff;
+    background-color: #e72564;
+}
+
+.register .input:-moz-placeholder{
+    color: #fff;
+}
+
+.register .input::-moz-placeholder{
+    color: #fff;
+}
+.register .input:-ms-input-placeholder{
+    color: #fff;
+}
+.register .input::-webkit-input-placeholder{
+    color: #fff;
+}
+
+.register .btn{
+    color: #e72564;
+    background-color: #fff;
+}
