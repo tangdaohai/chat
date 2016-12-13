@@ -10,8 +10,7 @@ const co = require("co");
 const UserSchema = new mongoose.Schema({
     email: String,
     password: String,
-    nick: String,
-    handImg: String
+    name: String
 });
 
 UserSchema.methods = {

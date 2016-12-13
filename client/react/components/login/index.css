@@ -82,13 +82,13 @@
 }
 
 .index-body{
-    width: 360px;
+    width: 410px;
     height: 300px;
     position: relative;
 }
 
 .form-box{
-    width: 100%;
+    width: 360px;
     height: 100%;
     box-shadow: 0 10px 12px #d9dee2;
     padding: 0 15px;

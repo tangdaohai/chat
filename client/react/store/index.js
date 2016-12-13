@@ -6,6 +6,7 @@
 import {createStore, combineReducers, applyMiddleware, compose} from 'redux';
 import thunk from "redux-thunk";
 import {routerReducer} from 'react-router-redux';
+import { reducer as formReducer } from 'redux-form';
 import logger from 'redux-diff-logger';
 
 //引入所有的 reducer
@@ -19,6 +20,7 @@ function create() {
     //将 reducer, react-router 与 redux 绑定
     const reducer = combineReducers({
         ...reducers,
+        form: formReducer,
         routing: routerReducer
     });
 
