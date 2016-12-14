@@ -6,7 +6,17 @@ import React from "react";
 
 import List from "./list";
 
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
+import { getOnlineUser } from "../../../action/UserAction";
+
+@connect( state => ({ userList: state.userList}), dispatch => ({ ...bindActionCreators( { getOnlineUser } , dispatch) }) )
 export default class UserList extends React.Component{
+
+    constructor(props){
+        super(props);
+        props.getOnlineUser();
+    }
     
     render(){
         
@@ -22,7 +32,7 @@ export default class UserList extends React.Component{
                     </div>
                 </div>
                 
-                <List />
+                <List userList = {this.props.userList}/>
             </div>
         </div>
     }

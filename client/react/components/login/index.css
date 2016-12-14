@@ -33,6 +33,7 @@
     border-radius: 3px;
     font-size: 14px;
     cursor: pointer;
+    outline: none;
 }
 
 .index-container{

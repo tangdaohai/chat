@@ -48,6 +48,8 @@ function success(message, time){
     show(message, "success", time);
 }
 
-export {
+const notification =  {
     info, success, warning, error
-}
+};
+
+export default notification;

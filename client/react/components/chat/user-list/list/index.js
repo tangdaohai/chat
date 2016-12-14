@@ -6,27 +6,25 @@ import React from "react";
 
 import Avatar from "../../avatar";
 
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
+import { changeCurrentChatUser, setCurrentChatUser } from "../../../../action/UserAction";
+
+@connect( state => ({ userList: state.userList}),
+    dispatch => ({ ...bindActionCreators( { changeCurrentChatUser, setCurrentChatUser} , dispatch) }) )
 export default class List extends React.Component{
+
+    changeUser = index => () => {
+        const currentUser = this.props.userList[index];
+        this.props.setCurrentChatUser(currentUser);
+        this.props.changeCurrentChatUser(currentUser["_id"]);
+    };
     
     render(){
-
-        const UserList = [{
-            id: 1,
-            name : "John Smith",
-            avatar : "https://d13yacurqjgara.cloudfront.net/users/1312609/avatars/mini/15e123a507b4648a058e71d4539cc17a.jpg?1470333246"
-        },{
-            id: 2,
-            name : "John Smith",
-            avatar : "https://d13yacurqjgara.cloudfront.net/users/1312609/avatars/mini/15e123a507b4648a058e71d4539cc17a.jpg?1470333246"
-        },{
-            id: 3,
-            name : "John Smith",
-            avatar : "https://d13yacurqjgara.cloudfront.net/users/1312609/avatars/mini/15e123a507b4648a058e71d4539cc17a.jpg?1470333246"
-        }];
         
         return <div className="user-list">
             <ul>
-                { UserList.map( val => <_Item User={val} key={val.id} />) }
+                { this.props.userList.map( (val, index) => <_Item User={val} key={val._id} click={ this.changeUser(index) }/>) }
             </ul>
         </div>
     }
@@ -38,9 +36,9 @@ class _Item extends React.Component{
         
         const { User } = this.props;
         
-        return <li className="flex">
-            <Avatar avatar={ User.avatar } />
-            <div className="name-content flex">
+        return <li className={`flex ${User.active ? "active": ""}`}>
+            <Avatar avatar={ User.avatar } user={User} />
+            <div className="name-content flex" onClick={this.props.click}>
                 <div className="no-wrap">{ User.name }</div>
                 <div className="no-wrap">Let's grab some coffee and tea, so keep easy</div>
             </div>

@@ -5,39 +5,53 @@ import React from "react";
 import { Field, reduxForm } from 'redux-form';
 import {browserHistory} from "react-router";
 
-import SwitchIcon from "../switch-icon";
 import "./login.css";
+import SwitchIcon from "../switch-icon";
+import notification from "../../notification";
+import Loading from "../../loading";
 
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import { login } from "../../../action/UserAction";
+import { loginSuccess } from "../../../action/UserAction";
+import socket from "../../../Socket";
 
-@connect( state => ({ form : state.form }), dispatch => ({ ...bindActionCreators( { login } , dispatch) }) )
+@connect( state => ({ form : state.form }), dispatch => ({ ...bindActionCreators( { loginSuccess } , dispatch) }) )
 class Login extends React.Component {
 
+    constructor(props){
+        super(props);
+        this.state={
+            isLoading : false
+        }
+    }
 
-
-    toChat() {
-        // this.props.login({
-        //     user: "123",
-        //     password: "123"
-        // });
-        // browserHistory.push("/react/chat");
-        console.log(this.props.form);
+    login() {
+        this.setState({ isLoading: true });
+        socket.emit("user/signIn", this.props.form.login.values, result => {
+            this.setState({ isLoading: false });
+            if(result.success){
+                this.props.loginSuccess(result.content);
+                browserHistory.push("/react/chat");
+            }else{
+                //登陆失败
+                notification.error(result.message);
+            }
+        });
     }
 
     render() {
         return <div>
+            { this.state.isLoading ? <Loading /> : "" }
             <SwitchIcon iconText="注册" click={ () => browserHistory.push("/react/sign-up") } />
             <div className="login form-box flex">
                 <span className="title">Login</span>
                 <Field name="email" component="input" placeholder="Email" className="input-basic-60 input"/>
-                <Field name="password" component="input" placeholder="Password" className="input-basic-60 input"/>
+                <Field name="password" component="input" type="password" placeholder="Password" className="input-basic-60 input"/>
                 <div className="remember-me">
                     <Field name="remember" component="input" id="remember-me-box" type="checkbox" className="remember-me-box"/>
                     <label htmlFor="remember-me-box">Remember me</label>
                 </div>
-                <button className="btn" onClick={ this.toChat.bind(this) }>SUBMIT</button>
+                <button className="btn" onClick={ this.login.bind(this) }>SUBMIT</button>
             </div>
         </div>
     }

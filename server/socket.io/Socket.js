@@ -21,13 +21,18 @@ module.exports = function Socket(io){
                 const result = yield UserService.signIn(user);
 
                 if(result) {
-                    delete result.password;
+                    console.log(delete result.password);
+                    console.log(result);
+                    callback(format.success(result));
+
+                    delete result.email;
                     socket.user = result;
                     //新用户加入
                     onLines.set(result._id.toString(), socket);
                     //发布上线通知
                     socket.broadcast.emit("add user", format.success(result));
-                    return callback(format.success(result));
+
+                    return;
                 }
 
                 return callback(format.fail("sorry... 你输如的账号或密码有错误!"));
@@ -41,8 +46,17 @@ module.exports = function Socket(io){
                 const result = yield UserService.signUp(user);
 
                 if(result){
-                    result.password = "";
-                    return callback(format.success(result));
+                    delete result.password;
+                    callback(format.success(result));
+
+                    delete result.email;
+                    socket.user = result;
+                    //新用户加入
+                    onLines.set(result._id.toString(), socket);
+                    //发布上线通知
+                    socket.broadcast.emit("add user", format.success(result));
+
+                    return;
                 }
 
                 callback(format.fail("sorry... 注册失败!"));
