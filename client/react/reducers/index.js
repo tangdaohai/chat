@@ -3,3 +3,4 @@
  */
 
 export { user, userList, currentChatUser} from "./user";
+export { messageList } from "./message";

@@ -5,15 +5,20 @@
 import React from "react";
 
 import Avatar from "../avatar";
+
+import { connect } from "react-redux";
+@connect( state => ({ currentChatUser: state.currentChatUser }))
 export default class Header extends React.Component{
     
     render(){
+
+        const chatUser = this.props.currentChatUser;
         
         return <div className="header-nav flex">
             <div className="flex avatar">
-                <Avatar avatar="https://d13yacurqjgara.cloudfront.net/users/1312609/avatars/mini/15e123a507b4648a058e71d4539cc17a.jpg?1470333246" />
+                <Avatar user={ chatUser }/>
 
-                <span className="name">Allison Grayce</span>
+                <span className="name">{ chatUser.name }</span>
             </div>
             <div className="menu-container">
                 <i className="fa fa-video-camera fa-lg" aria-hidden="true" />

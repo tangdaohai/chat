@@ -16,15 +16,17 @@ module.exports = function Socket(io){
 
         //登陆
         socket.on("user/signIn", (user, callback) => {
+
+            if(!user){
+                return callback(format.fail("请输入账号密码"));
+            }
             co(function* (){
 
                 const result = yield UserService.signIn(user);
 
                 if(result) {
-                    console.log(delete result.password);
-                    console.log(result);
+                    delete result.password;
                     callback(format.success(result));
-
                     delete result.email;
                     socket.user = result;
                     //新用户加入
@@ -48,7 +50,6 @@ module.exports = function Socket(io){
                 if(result){
                     delete result.password;
                     callback(format.success(result));
-
                     delete result.email;
                     socket.user = result;
                     //新用户加入
