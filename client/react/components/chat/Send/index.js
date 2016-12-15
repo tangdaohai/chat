@@ -18,13 +18,20 @@ export default class Send extends React.Component{
 
     sendHandle= event =>{
         if(event.keyCode === 13){
-            console.log(event.target.value);
-            this.props.send(this.props.currentChatUser._id, {
+
+            const value = event.target.value || "";
+
+            if(!value.trim()){
+                return;
+            }
+
+            //发送消息
+            this.props.send({
                 time: Date.now(),
-                content: event.target.value,
-                from: this.props.currentChatUser._id,
-                to: this.props.user._id
-            })
+                content: value,
+                from: this.props.user._id,
+                to: this.props.currentChatUser._id
+            });
 
             event.target.value = "";
         }

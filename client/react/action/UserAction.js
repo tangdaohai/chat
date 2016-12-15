@@ -6,7 +6,9 @@ import socket from "../Socket";
 export const SIGN_IN_SUCCESS = "login-success";
 export const USER_LIST = "user-list";
 export const CHANGE_CHAT_USER = "change-chat-user";
-export const CURRENT_CHAT_USER = "current-chat-user";
+export const UNREAD = "unread";
+export const ADD_USER = "add-user";
+export const USER_LEAVE= "user-leave";
 /**
  * 登陆成功
  * @param user
@@ -48,24 +50,43 @@ export function getOnlineUser(){
 
 /**
  * 修改当前的聊天用户
- * @param id
+ * @param currentUser
  * @returns {{type: string, id: *}}
  */
-export function changeCurrentChatUser(_id){
+export function changeCurrentChatUser(currentChatUser){
     return {
         type: CHANGE_CHAT_USER,
-        _id
+        currentChatUser
     }
 }
 
 /**
- * 当前的聊天用户
- * @param currentChatUser
- * @returns {{type: string, currentChatUser: *}}
+ * 用户上线
+ * @param user
+ * @returns {{type: string, user: *}}
  */
-export function setCurrentChatUser(currentChatUser){
+export function addUser(user){
     return {
-        type: CURRENT_CHAT_USER,
-        currentChatUser
+        type: ADD_USER,
+        user
+    }
+}
+
+export function userLeave(user){
+    return {
+        type: USER_LEAVE,
+        user
+    }
+}
+
+/**
+ * 未读消息
+ * @param from
+ * @returns {{type: string, from: *}}
+ */
+export function unread(from){
+    return {
+        type: UNREAD,
+        from
     }
 }

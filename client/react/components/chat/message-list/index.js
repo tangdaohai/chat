@@ -17,7 +17,7 @@ export default class MessageList extends React.Component{
 
         const List = this.props.messageList[this.props.currentChatUser._id] || [];
 
-        return <div className="dialogue flex">
+        return <div ref={ node => this._listNode = node } className="dialogue flex">
             <div className="dialogue-middle">
                 {
                     List.map( (val, index) => <_Message key={index * 2} message={ val } myId={ this.props.user._id }/>)
@@ -25,8 +25,23 @@ export default class MessageList extends React.Component{
             </div>
         </div>
     }
+
+    toBottom(){
+        //渲染完毕后 将滚动条拉倒最底部
+        this._listNode.scrollTop = this._listNode.scrollHeight;
+    }
+    componentDidMount(){
+        this.toBottom();
+    }
+
+    componentDidUpdate(){
+        this.toBottom();
+    }
 }
 
+/**
+ * 单条消息
+ */
 class _Message extends React.Component{
 
     render(){

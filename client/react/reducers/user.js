@@ -4,9 +4,11 @@
 
 import { 
     SIGN_IN_SUCCESS, 
-    USER_LIST, 
+    USER_LIST,
     CHANGE_CHAT_USER,
-    CURRENT_CHAT_USER
+    UNREAD,
+    ADD_USER,
+    USER_LEAVE
 } from "../action/UserAction";
 
 /**
@@ -33,17 +35,34 @@ export function user(user = {}, action){
  */
 export function userList(userList = [], action){
 
-    const result = Object.assign([], userList);
+    const list = Object.assign([], userList);
 
     switch (action.type){
-        case USER_LIST:
+        case USER_LIST: //获取在线用户列表
             return Object.assign( [], action.userList);
-        case CHANGE_CHAT_USER:
-            result.forEach( val => {
-                val.active = val._id === action._id;
+
+        case CHANGE_CHAT_USER:  //变更当前的聊天用户
+            list.forEach( val => {
+                val.active = val._id === action.currentChatUser._id;
+                //清除未读消息
+                val.unread = undefined;
             });
 
-            return result;
+            return list;
+        case UNREAD:    //收到未读消息
+            for(let i = 0, length = list.length; i < length; i++){
+                if(list[i]._id === action.from){
+                    list[i].unread ? list[i].unread += 1 : list[i].unread = 1;
+                    return list;
+                }
+            }
+
+            return list;
+        case ADD_USER:  //有用户上线
+            list.push(action.user);
+            return list;
+        case USER_LEAVE:
+            return list.filter( val => val._id !== action.user._id);
     }
     
     return userList;
@@ -55,7 +74,7 @@ export function userList(userList = [], action){
  * @param action
  */
 export function currentChatUser(currentChatUser = {}, action){
-    if(action.type === CURRENT_CHAT_USER){
+    if(action.type === CHANGE_CHAT_USER){
         return action.currentChatUser;
     }
 

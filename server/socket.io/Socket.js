@@ -67,7 +67,7 @@ module.exports = function Socket(io){
         //获取在线用户
         socket.on("user/getOnLine", (callback) => {
 
-            callback(format.success(getOnLines(socket.user, onLines)));
+            callback(format.success(getOnLines(socket.user)));
         });
         
         //用户发送信息
@@ -84,11 +84,11 @@ module.exports = function Socket(io){
          * 去除本身
          * @returns {Array}
          */
-        const getOnLines  = (currentUser = {_id: ""}, onLines) => {
+        const getOnLines  = (currentUser = {_id: ""}) => {
             const users = [];
             for(let [key, value] of onLines.entries()){
                 //去除当前用户
-                if(key != currentUser._id.toString()){
+                if(key.toString() != currentUser._id.toString()){
                     users.push(value.user);
                 }
             }
@@ -99,9 +99,11 @@ module.exports = function Socket(io){
          * 用户退出
          */
         const logout = () => {
+            console.log("socket 断开");
             //如果用户有登陆, 删除这个用户
             if(socket.user){
-                onLines.delete(socket.user["_id"]);
+                console.log(socket.user.name + " 离开");
+                onLines.delete(socket.user["_id"].toString());
                 socket.broadcast.emit("user leave", format.success(socket.user));
             }
         }

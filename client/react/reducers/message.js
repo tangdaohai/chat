@@ -1,21 +1,29 @@
 /**
  * Created by Jerry on 16/12/14.
  */
-import { SEND_MESSAGE, ACCEPT_MESSAGE} from "../action/MessageAction";
+import { SEND_MESSAGE, NEW_MESSAGE} from "../action/MessageAction";
 
 export function messageList(messageList = {}, action){
 
+    const list = Object.assign({}, messageList);
+    let id;
     switch (action.type){
-        case SEND_MESSAGE:
-            const list = Object.assign({}, messageList);
-            const id = action.to;
+        case NEW_MESSAGE :
+             id = action.message.from; //发消息的人
             if(list[id]){
                 list[id].push(action.message);
             }else{
                 list[id] = [action.message];
             }
             return list;
-        case ACCEPT_MESSAGE:
+        case SEND_MESSAGE:
+            id = action.message.to;   //收消息的人
+            if(list[id]){
+                list[id].push(action.message);
+            }else{
+                list[id] = [action.message];
+            }
+            return list;
     }
     
     return messageList;

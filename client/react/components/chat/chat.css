@@ -71,6 +71,20 @@
     flex-grow: 1;
     justify-content: center;
     cursor: pointer;
+    position: relative;
+}
+
+.user-list .name-content .user-unread{
+    position: absolute;
+    top: 0;
+    right: 15px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    color: #34bebc;
+    background-color: #edf5f8;
+    text-align: center;
+    line-height: 30px;
 }
 
 .user-list .name-content div:nth-child(1){
@@ -158,6 +172,10 @@
     background-color: #edf5f8;
     flex-direction: column;
     overflow: auto;
+}
+
+.dialogue-container .dialogue .dialogue-middle{
+    padding-bottom: 20px;
 }
 
 .dialogue-container .dialogue .dialogue-middle> div{
