@@ -66,7 +66,7 @@ app.use(co.wrap(function *(ctx){
     console.log("已进入404的方法");
     if(ctx.status === 404){
         console.log(`here, 404... ${ctx.path}`);
-        ctx.throw(404);
+        ctx.body= "<h1>404</h1>";
     }
 }));
 
