@@ -8,7 +8,8 @@ import {
     CHANGE_CHAT_USER,
     UNREAD,
     ADD_USER,
-    USER_LEAVE
+    USER_LEAVE,
+    MODIFY_MY_NAME
 } from "../action/UserAction";
 
 /**
@@ -19,9 +20,13 @@ import {
  */
 export function user(user = {}, action){
 
+    const u = Object.assign({}, user);
     switch (action.type){
         case SIGN_IN_SUCCESS : 
             return Object.assign( {}, action.user);
+        case MODIFY_MY_NAME:
+            u.name = action.name;
+            return u;
     }
     
     return user;
@@ -61,7 +66,7 @@ export function userList(userList = [], action){
         case ADD_USER:  //有用户上线
             list.push(action.user);
             return list;
-        case USER_LEAVE:
+        case USER_LEAVE:   //有用户离开
             return list.filter( val => val._id !== action.user._id);
     }
     

@@ -43,6 +43,7 @@
     "socket.io": "^1.4.8",
     "socket.io-client": "^1.4.8",
     "style-loader": "^0.13.1",
+    "utility": "^1.9.0",
     "webpack": "^1.13.1",
     "webpack-dev-server": "^1.15.0",
     "webpack-hot-middleware": "^2.12.2"

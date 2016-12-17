@@ -9,6 +9,8 @@ export const CHANGE_CHAT_USER = "change-chat-user";
 export const UNREAD = "unread";
 export const ADD_USER = "add-user";
 export const USER_LEAVE= "user-leave";
+
+export const MODIFY_MY_NAME = "modify-my-name";
 /**
  * 登陆成功
  * @param user
@@ -88,5 +90,17 @@ export function unread(from){
     return {
         type: UNREAD,
         from
+    }
+}
+
+export function modifyMyName(name){
+    return dispatch => {
+        socket.emit("user/modifyMyName", name, result => {
+            console.log(result);
+            return dispatch({
+                type: MODIFY_MY_NAME,
+                name
+            });
+        });
     }
 }

@@ -12,10 +12,10 @@ export default class Acatar extends React.Component{
     
     render(){
         
-        const { avatar, user = {name: ""}, click } = this.props;
+        const { user = {name: ""}, click } = this.props;
 
         return <div className="img-container flex f-c" onClick={ click }>
-            {avatar ? <img src={ avatar } /> : <div className="no-avatar">{user.name ? user.name[0] : ""}</div>}
+            {user.avatar ? <img src={ "https://www.gravatar.com/avatar/" + user.avatar } /> : <div className="no-avatar">{user.name ? user.name[0] : ""}</div>}
         </div>
     }
 }

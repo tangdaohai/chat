@@ -99,24 +99,46 @@
 
 .nav-container{
     height: 60px;
-    color: #86a6b6;
     border-bottom: 1px solid #edf5f8;
     justify-content: space-between;
+    align-items: center;
 }
 
 .nav-container i{
     cursor: pointer;
+    color: #86a6b6;
 }
 
-.nav-container > div:nth-child(1){
+.nav-container .about-me{
     margin-left: 20px;
+    overflow: hidden;
 }
 
-.nav-container > div:nth-child(2){
+.nav-container .about-me .my-name{
+    min-width: 150px;
+    color: #5f7290;
+    font-size: 14px;
+    margin-left: 5px;
+    padding-left: 5px;
+    cursor: pointer;
+}
+
+.nav-container .about-me .edit-my-name{
+    line-height: 35px;
+    height: 35px;
+    background-color: #edf5f8;
+    border-radius: 5px;
+    outline: none;
+    border: none;
+    overflow: hidden;
+    cursor: auto;
+}
+
+.nav-container .search{
     margin-right: 20px;
 }
 
-.nav-container > div:nth-child(2) > i:last-child{
+.nav-container > .search > i:last-child{
     margin-left:20px;
 }
 

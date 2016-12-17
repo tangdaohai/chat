@@ -5,6 +5,7 @@
 const co = require("co");
 const UserService = require("../dao/user/UserService");
 const format = require("../configure/DataFormat");
+const utility = require("utility");
 
 module.exports = function Socket(io){
 
@@ -25,16 +26,7 @@ module.exports = function Socket(io){
                 const result = yield UserService.signIn(user);
 
                 if(result) {
-                    delete result.password;
-                    callback(format.success(result));
-                    delete result.email;
-                    socket.user = result;
-                    //新用户加入
-                    onLines.set(result._id.toString(), socket);
-                    //发布上线通知
-                    socket.broadcast.emit("add user", format.success(result));
-
-                    return;
+                    return addUser(result, callback);
                 }
 
                 return callback(format.fail("sorry... 你输如的账号或密码有错误!"));
@@ -48,20 +40,22 @@ module.exports = function Socket(io){
                 const result = yield UserService.signUp(user);
 
                 if(result){
-                    delete result.password;
-                    callback(format.success(result));
-                    delete result.email;
-                    socket.user = result;
-                    //新用户加入
-                    onLines.set(result._id.toString(), socket);
-                    //发布上线通知
-                    socket.broadcast.emit("add user", format.success(result));
-
-                    return;
+                    return addUser(result, callback);
                 }
 
                 callback(format.fail("sorry... 注册失败!"));
             });
+        });
+
+        socket.on("user/modifyMyName", (name, callback) => {
+            co(function* () {
+                const result = yield UserService.modifyName(socket.user._id, name);
+                if(result.ok >= 1){
+                    callback(format.success());
+                }else{
+                    callback(format.fail());
+                }
+            })
         });
 
         //获取在线用户
@@ -77,7 +71,8 @@ module.exports = function Socket(io){
                 toSocket.emit("new message", format.success(data));
             }
         });
-        
+
+        //断开连接
         socket.on("disconnect", () => logout());
 
         /**
@@ -88,12 +83,33 @@ module.exports = function Socket(io){
             const users = [];
             for(let [key, value] of onLines.entries()){
                 //去除当前用户
-                if(key.toString() != currentUser._id.toString()){
+                if(key != currentUser._id){
                     users.push(value.user);
                 }
             }
             return users;
         };
+
+        /**
+         * 有新用户加入
+         * @param result
+         * @param callback
+         */
+        function addUser(result, callback) {
+            const user = {
+                _id: result._id.toString(),
+                email : result.email,
+                name : result.name,
+                avatar: utility.md5("tangdaohai@outlook.com")
+            };
+            callback(format.success(user));
+            delete user.email;
+            socket.user = user;
+            //新用户加入
+            onLines.set(user._id, socket);
+            //发布上线通知
+            socket.broadcast.emit("add user", format.success(socket.user));
+        }
 
         /**
          * 用户退出
@@ -103,9 +119,9 @@ module.exports = function Socket(io){
             //如果用户有登陆, 删除这个用户
             if(socket.user){
                 console.log(socket.user.name + " 离开");
-                onLines.delete(socket.user["_id"].toString());
+                onLines.delete(socket.user["_id"]);
                 socket.broadcast.emit("user leave", format.success(socket.user));
             }
-        }
+        };
     });
 };

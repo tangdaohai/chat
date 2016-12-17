@@ -42,6 +42,7 @@ export default class MessageList extends React.Component{
 /**
  * 单条消息
  */
+@connect( state => ({ userList: state.userList }))
 class _Message extends React.Component{
 
     render(){
@@ -50,7 +51,7 @@ class _Message extends React.Component{
 
         return <div className={`dialogue-${message.from === myId ? "right" : "left"} flex`}>
 
-            <Avatar avatar="https://d13yacurqjgara.cloudfront.net/users/623359/avatars/mini/9f913570d43869d5d3efb89ac684093b.png?1442219999"/>
+            <Avatar user={ this.props.userList.filter( user => user._id === message.from)[0] }/>
 
             <span className="arrow" />
             <div className="content flex">
