@@ -1,0 +1,8 @@
+.user-setting{
+    min-width: 600px;
+    padding: 20px;
+    font-size: 14px;
+    color: #5f7290;
+    background-color: #fff;
+    flex-direction: column;
+}

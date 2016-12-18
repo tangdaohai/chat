@@ -3,6 +3,7 @@
  */
 import React from "react";
 import Avatar from "../avatar";
+import setting from "../setting/Setting";
 
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
@@ -24,6 +25,7 @@ export default class MyName extends React.Component{
     switchEdit = () => {
         this.setState({isEdit: true});
     };
+    
     /**
      * 切换到展示 name
      * input 失去焦点触发
@@ -48,7 +50,7 @@ export default class MyName extends React.Component{
 
     render(){
         return <div className="flex f-c">
-            <Avatar user={this.props.user} />
+            <Avatar user={this.props.user} click={ ()=> setting()}/>
             {
                 this.state.isEdit
                     ?  <input type="text"

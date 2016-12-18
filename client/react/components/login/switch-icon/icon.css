@@ -5,7 +5,7 @@
     background-color: #e72564;
     border-radius: 50%;
     cursor: pointer;
-    z-index: 100;
+    z-index: 1;
     position: absolute;
     left: 365px;
     top: 25px;

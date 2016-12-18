@@ -24,8 +24,11 @@ UserSchema.statics = {
     findUser: function (user) {
         return this.findOne(user).exec();
     },
-    modifyName: function(_id, name){
-        return this.update({_id: _id}, {$set: {name: name}}).exec();
+    modify: function(_id, updateDate){
+        return this.update({_id: _id}, {$set: updateDate}).exec();
+    },
+    modifyPassword: function(_id, oldPassword, newPassword){
+        return this.update({_id: _id, password: oldPassword}, {$set: {password: newPassword}}).exec();
     }
 };
 
@@ -62,5 +65,15 @@ exports.findUserByEmail = function*(email) {
  * @returns {*}
  */
 exports.modifyName = function*(_id, name) {
-    return yield UserModel.modifyName(_id, name);
+    return yield UserModel.modify(_id, {name: name});
+};
+/**
+ * 修改密码, 需要验证旧密码
+ * @param _id
+ * @param oldPassword
+ * @param newPassword
+ * @returns {*}
+ */
+exports.modifyPassword = function*(_id, oldPassword, newPassword){
+    return yield UserModel.modifyPassword(_id, oldPassword, newPassword);
 };
