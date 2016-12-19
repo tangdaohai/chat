@@ -9,7 +9,8 @@ mongoose.Promise = Promise;
 const UserSchema = new mongoose.Schema({
     email: String,
     password: String,
-    name: String
+    name: String,
+    avatarType: Number
 });
 
 UserSchema.methods = {
@@ -70,10 +71,9 @@ exports.modifyName = function*(_id, name) {
 /**
  * 修改密码, 需要验证旧密码
  * @param _id
- * @param oldPassword
- * @param newPassword
+ * @param password
  * @returns {*}
  */
-exports.modifyPassword = function*(_id, oldPassword, newPassword){
-    return yield UserModel.modifyPassword(_id, oldPassword, newPassword);
+exports.modifyPassword = function*(_id, password){
+    return yield UserModel.modifyPassword(_id, password.oldPassword, password.newPassword);
 };

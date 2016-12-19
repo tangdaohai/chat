@@ -52,7 +52,7 @@ export function getOnlineUser(){
 
 /**
  * 修改当前的聊天用户
- * @param currentUser
+ * @param currentChatUser
  * @returns {{type: string, id: *}}
  */
 export function changeCurrentChatUser(currentChatUser){
@@ -93,6 +93,11 @@ export function unread(from){
     }
 }
 
+/**
+ * 修改名称
+ * @param name
+ * @returns {function()}
+ */
 export function modifyMyName(name){
     return dispatch => {
         socket.emit("user/modifyMyName", name, result => {

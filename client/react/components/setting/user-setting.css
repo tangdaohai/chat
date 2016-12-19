@@ -1,6 +1,33 @@
+/* 公用 */
+.setting-input{
+    height: 35px;
+    margin-bottom: 30px;
+    outline: none;
+    border: none;
+    border-bottom: 1px solid #eef1f6;
+}
+
+.setting-disabled{
+    cursor: default;
+}
+
+.setting-save{
+    height: 35px;
+    color: #fff;
+    background-color: #34bebc;
+    margin-top: 10px;
+    padding: 0 20px;
+    border: none;
+    border-radius: 2px;
+    outline: none;
+    cursor: pointer;
+    align-self: flex-end;
+}
+/* end */
 .user-setting{
-    width: 750px;
-    height: 575px;
+    width: 50%;
+    height: 50%;
+    min-height: 450px;
     font-size: 14px;
     background-color: #fff;
     border-radius: 5px;
@@ -8,12 +35,35 @@
 
 .user-setting .setting-menu{
     width: 195px;
-    padding: 20px;
+    padding: 20px 0;
     border-right: 1px solid #eef1f6;
     flex-direction: column;
 }
 
 .user-setting .setting-menu .menu-item{
-    height: 59px;
+    height: 50px;
+    line-height: 50px;
     color: #88929f;
+    padding-left: 20px;
+    cursor: pointer;
+}
+
+.user-setting .setting-menu .active{
+    color: #34bebc;
+    border-left: 3px solid #34bebc;
+    padding-left: 17px;
+}
+
+.user-setting .setting-content{
+    width: 100%;
+    padding: 35px 35px;
+    color: #88929f;
+    flex-direction: column;
+}
+
+
+/* 设置内容的div容器 */
+.setting-container{
+    width: 100%;
+    flex-direction: column;
 }

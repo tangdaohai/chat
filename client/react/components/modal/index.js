@@ -41,7 +41,7 @@ class Modal extends React.Component{
             <div className="close-modal" onClick={ this.props.click || (() => browserHistory.goBack()) }>
                 <i className="fa fa-times fa-2x" aria-hidden="true" />
             </div>
-            <div className="modal-content">
+            <div className="modal-content flex f-c">
                 { this.props.children }
             </div>
         </div>

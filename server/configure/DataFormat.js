@@ -3,20 +3,20 @@
  */
 
 module.exports = {
-    success : (content, message) => {
+    success : (content, message = "") => {
         return {
             status : "success",
             success : true,
             content : content,
-            message : message || ""
+            message : message
         }
     },
-    fail : (message) => {
+    fail : (message = "", type = "") => {
         return {
             status : "fail",
             fail : true,
-            content : "",
-            message : message || ""
+            type: type,
+            message : message
         }
     }
 };

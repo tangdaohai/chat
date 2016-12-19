@@ -23,7 +23,10 @@ module.exports = function Socket(io){
             }
             co(function* (){
 
-                const result = yield UserService.signIn(user);
+                const result = yield UserService.signIn({
+                    email: user.email,
+                    password: user.password
+                });
 
                 if(result) {
                     return addUser(result, callback);
@@ -36,26 +39,44 @@ module.exports = function Socket(io){
         //注册
         socket.on("user/signUp", (user, callback) => {
             co(function* (){
-
+                //默认的头像类型
+                user.avatarType = 0;
                 const result = yield UserService.signUp(user);
-
                 if(result){
                     return addUser(result, callback);
                 }
-
                 callback(format.fail("sorry... 注册失败!"));
             });
         });
 
+        //修改名称
         socket.on("user/modifyMyName", (name, callback) => {
+            if( !socket.user || !socket.user._id){
+                callback(format.fail());
+            }
             co(function* () {
                 const result = yield UserService.modifyName(socket.user._id, name);
-                if(result.ok >= 1){
+                if(result.nModified >= 1){
                     callback(format.success());
                 }else{
                     callback(format.fail());
                 }
             })
+        });
+        
+        //修改密码
+        socket.on("user/modifyPassword", (password, callback) => {
+            if( !socket.user || !socket.user._id){
+                callback(format.fail());
+            }
+            co(function* (){
+                const result = yield  UserService.modifyPassword(socket.user._id, password);
+                if(result.nModified >= 1){
+                    callback(format.success());
+                }else{
+                    callback(format.fail());
+                }
+            });
         });
 
         //获取在线用户

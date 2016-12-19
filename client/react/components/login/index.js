@@ -3,15 +3,12 @@
  */
 import React from "react";
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
-import {browserHistory} from "react-router";
 
 import "./index.css";
 import Login from "./login";
 import Register from "./register";
 
 export default class Index extends React.Component {
-
-    changeHistory = (isLogin) => () =>browserHistory.push("/react/sign-" + ( isLogin ? "up" : "in"));
 
     render() {
 

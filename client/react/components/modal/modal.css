@@ -23,7 +23,7 @@
     right: 50px;
     cursor: pointer;
     position: absolute;
-    z-index:1000;
+    z-index:10002;
 }
 
 .close-modal:hover{
@@ -31,5 +31,7 @@
 }
 
 .modal-content{
+    width: 100%;
+    height: 100%;
     z-index: 10001;
 }
