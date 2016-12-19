@@ -11,6 +11,7 @@ import { syncHistoryWithStore } from 'react-router-redux';
 import "./components/basic.css";
 import Login from "./components/login";
 import Chat from "./components/chat";
+import Setting from "./components/setting/Setting";
 
 //引入创建好的 store.
 import store from "./store";
@@ -22,7 +23,9 @@ ReactDom.render(<Provider store= { store }>
         <Route path="/react">
             <IndexRedirect to="sign-in" />
             <Route path="sign-:type" component={ Login } />
-            <Route path="chat" component = { Chat } />
+            <Route path="chat" component = { Chat }>
+                <Route path="setting" component={ Setting } />
+            </Route>
         </Route>
     </Router>
 </Provider>, document.querySelector("#main"));

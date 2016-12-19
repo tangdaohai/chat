@@ -15,7 +15,7 @@ function getSocket(){
 
     const io = Socket(location.origin + '/chat',{
         reconnection : true,
-        reconnectionDelay : 1000
+        reconnectionDelay : 5000
     });
 
     io.on("connect", () => {

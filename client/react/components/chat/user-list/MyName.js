@@ -2,8 +2,8 @@
  * Created by Jerry on 16/12/18.
  */
 import React from "react";
+import { browserHistory } from "react-router";
 import Avatar from "../avatar";
-import setting from "../setting/Setting";
 
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
@@ -48,9 +48,13 @@ export default class MyName extends React.Component{
       }
     };
 
+    setting(){
+        browserHistory.push("/react/chat/setting");
+    }
+
     render(){
         return <div className="flex f-c">
-            <Avatar user={this.props.user} click={ ()=> setting()}/>
+            <Avatar user={this.props.user} click={ this.setting }/>
             {
                 this.state.isEdit
                     ?  <input type="text"

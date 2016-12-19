@@ -1,0 +1,19 @@
+.user-setting{
+    width: 750px;
+    height: 575px;
+    font-size: 14px;
+    background-color: #fff;
+    border-radius: 5px;
+}
+
+.user-setting .setting-menu{
+    width: 195px;
+    padding: 20px;
+    border-right: 1px solid #eef1f6;
+    flex-direction: column;
+}
+
+.user-setting .setting-menu .menu-item{
+    height: 59px;
+    color: #88929f;
+}

@@ -12,17 +12,22 @@
     position: absolute;
     top: 0;
     left: 0;
-    background-color: #000;
-    opacity: .5;
+    background-color: #edf5f8;
+    opacity: .8;
     z-index:1000;
 }
 
 .close-modal{
+    color: #999;
     top: 50px;
     right: 50px;
     cursor: pointer;
     position: absolute;
     z-index:1000;
+}
+
+.close-modal:hover{
+    color: #bbb;
 }
 
 .modal-content{
