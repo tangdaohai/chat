@@ -1,0 +1,10 @@
+{
+  "apps" : [{
+    "name"        : "chat",
+    "script"      : "server/bin/www",
+    "node_args"   : ["--max-old-space-size=500"],
+    "args"        : ["prod"],
+    "out_file"    : "log/pm2.log",
+    "merge_logs"  : true
+  }]
+}

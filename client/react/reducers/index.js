@@ -1,8 +1,6 @@
 /**
- * Created by Jerry on 16/8/10.
+ * Created by Jerry on 16/12/12.
  */
 
-export current from "./current";
-export messageMap from "./messageMap";
-export onLines from "./onLines";
-export signIn from "./sign";
+export { user, userList, currentChatUser} from "./user";
+export { messageList } from "./message";

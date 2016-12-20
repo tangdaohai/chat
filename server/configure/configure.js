@@ -6,7 +6,7 @@ module.exports = model => {
 
   let conf = require(`./${model}`);
   if(!conf){
-    console.info(`warning! ${model} 为找到这个配置,默认使用 dev 配置`);
+    console.info(`warning! ${model} 未找到这个配置,默认使用 dev 配置`);
     conf = require("./dev");
   }
 

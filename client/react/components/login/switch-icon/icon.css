@@ -1,0 +1,67 @@
+.switch-icon{
+    width: 45px;
+    height: 45px;
+    color: #fff;
+    background-color: #e72564;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 1;
+    position: absolute;
+    left: 365px;
+    top: 25px;
+    -webkit-transition: -webkit-transform .5s;
+    transition: -webkit-transform .5s;
+    transition: transform .5s;
+    transition:transform .5s, -webkit-transform .5s;
+}
+
+.register-switch-icon{
+    color: #e72564;
+    background-color: #fff;
+}
+
+.register-switch-icon > i{
+    transform: rotate(45deg);
+}
+
+.switch-icon:hover{
+    -webkit-transform: rotateY(180deg);
+    transform: rotateY(180deg);
+}
+
+.switch-icon:hover > i, .switch-icon > i:hover{
+    opacity: 0;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+}
+
+.switch-icon > i{
+    opacity: 1;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+    -webkit-transition: opacity .1s .4s;
+    transition: opacity .1s .4s;
+}
+
+.switch-icon span{
+    opacity: 0;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+    width: 40px;
+    height: 24px;
+    line-height: 24px;
+    margin: auto;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    text-align: center;
+    position: absolute;
+
+    -webkit-transform: rotateY(180deg);
+    transform: rotateY(180deg);
+}
+
+.switch-icon:hover > span, .switch-icon > span:hover{
+    -webkit-transition: opacity .50ms .4s;
+    transition: opacity .50ms .4s;
+    opacity: 1;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+}

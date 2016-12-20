@@ -1,118 +1,111 @@
 /**
- * Created by Jerry on 16/9/6.
+ * Created by Jerry on 16/12/12.
  */
-
-import io from "../Socket";
+import socket from "../Socket";
 
 export const SIGN_IN_SUCCESS = "login-success";
-export const SIGN_IN_FAIL = "login-fail";
-export const ON_LINE_USER = "on-line-user";
-export const ADD_USER = "new-user";
-export const USER_LEAVE = "user-leave";
-export const CHANGE_CURRENT = "change-current";
+export const USER_LIST = "user-list";
+export const CHANGE_CHAT_USER = "change-chat-user";
+export const UNREAD = "unread";
+export const ADD_USER = "add-user";
+export const USER_LEAVE= "user-leave";
+
+export const MODIFY_MY_NAME = "modify-my-name";
+/**
+ * 登陆成功
+ * @param user
+ * @returns {{type: string, user: *}}
+ */
+export function loginSuccess(user){
+    return {
+        type: SIGN_IN_SUCCESS,
+        user
+    }
+}
 
 /**
- * 变更当前聊天对象
- * @param current
+ * 注册成功
+ * @param user
  */
-export function changeCurrent(current){
-    
+export function registerSuccess(user){
     return {
-        type : CHANGE_CURRENT,
-        current
+        type: SIGN_IN_SUCCESS,
+        user
     }
 }
 
 /**
  * 获取在线用户
- * @returns {function()}
  */
-export function getOnLine(){
+export function getOnlineUser(){
     return dispatch => {
-        io.emit("user/getOnLine", (result) => {
+        socket.emit("user/getOnLine", result => {
             if(result.success){
                 return dispatch({
-                    type : ON_LINE_USER,
-                    users : result.content
+                    type: USER_LIST,
+                    userList: result.content
                 });
             }
         });
-    };
-}
-
-/**
- * 新用户上线
- * @param user
- * @returns {{type: string, newUser: *}}
- */
-export function addUser(user) {
-    return {
-        type : ADD_USER,
-        user
     }
 }
 
 /**
- * 用户离开
+ * 修改当前的聊天用户
+ * @param currentChatUser
+ * @returns {{type: string, id: *}}
+ */
+export function changeCurrentChatUser(currentChatUser){
+    return {
+        type: CHANGE_CHAT_USER,
+        currentChatUser
+    }
+}
+
+/**
+ * 用户上线
  * @param user
  * @returns {{type: string, user: *}}
  */
+export function addUser(user){
+    return {
+        type: ADD_USER,
+        user
+    }
+}
+
 export function userLeave(user){
     return {
-        type : USER_LEAVE,
+        type: USER_LEAVE,
         user
     }
 }
 
 /**
- * 登陆
- * @param user
+ * 未读消息
+ * @param from
+ * @returns {{type: string, from: *}}
+ */
+export function unread(from){
+    return {
+        type: UNREAD,
+        from
+    }
+}
+
+/**
+ * 修改名称
+ * @param name
  * @returns {function()}
  */
-export function signIn(user){
+export function modifyMyName(name){
     return dispatch => {
-        //通过 socket 请求
-        io.emit("user/signIn", user, (result) =>{
-            if(result.success){
-                return dispatch(success(result.content));
-            }else{
-                return dispatch(fail(result.message));
-            }
+        socket.emit("user/modifyMyName", name, result => {
+            console.log(result);
+            return dispatch({
+                type: MODIFY_MY_NAME,
+                name
+            });
         });
-    }
-}
-
-
-/**
- * 注册
- * @param user
- */
-export function signUp(user){
-
-    return dispatch => {
-        io.emit("user/signUp", user, (result) => {
-           if(result.success){
-               //注册成功 直接进行登陆
-               return dispatch(success(result.content));
-           }else{
-               return dispatch(fail(result.message));
-           }
-        });
-    }
-}
-
-//登陆或注册成功
-function success(user){
-    return {
-        type : SIGN_IN_SUCCESS,
-        user
-    }
-}
-
-//登陆或注册失败
-function fail(message){
-    return {
-        type : SIGN_IN_FAIL,
-        message
     }
 }

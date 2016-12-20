@@ -13,9 +13,9 @@ export default io;
  */
 function getSocket(){
 
-    const io = Socket('http://localhost:3003/chat',{
+    const io = Socket(location.origin + '/chat',{
         reconnection : true,
-        reconnectionDelay : 1000
+        reconnectionDelay : 5000
     });
 
     io.on("connect", () => {
