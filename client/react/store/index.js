@@ -30,8 +30,8 @@ function create() {
         window.devToolsExtension ? window.devToolsExtension() : f => f
     ));
 
-    //热替换选项
-    if (module.hot) {
+    //开发模式下启动 热替换模块
+    if (process.env.NODE_ENV === 'development' && module.hot) {
         // Enable Webpack hot module replacement for reducers
         module.hot.accept('../reducers', () => {
             const nextReducer = require('../reducers/index');

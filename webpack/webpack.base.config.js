@@ -8,31 +8,25 @@ var webpack = require('webpack');
 var path = require('path');
 
 //基础配置
-const basic = {
+module.exports = {
     entry: {
-        index: [
-            "webpack-hot-middleware/client",
+        react: [
             "../client/react/app.js"
         ]
     },
     output: {
-        path: __dirname + "/js",
-        filename: "[name].js",
-        chunkFilename: '[id].chunk.js',
-        publicPath: "/js/"
+        path: "/",
+        filename: "js/[name].js",
+        chunkFilename: 'js/[id].js',
+        publicPath: "/"
     },
-    plugins: [
-        new webpack.optimize.CommonsChunkPlugin('shared.js'),
-        new webpack.optimize.OccurenceOrderPlugin(),
-        new webpack.HotModuleReplacementPlugin(),
-        new webpack.NoErrorsPlugin()
-    ],
     debug: true,
-    devtool: 'inline-source-map',
+    devtool: '#source-map',
     resolve: {
         root: [
             path.resolve(__dirname, './components')
         ],
+        fallback: [path.join(__dirname, '../node_modules')],
         extensions: ['', '.js', '.json', '.jsx']
     },
     // Expose __dirname to allow automatically setting basename.
@@ -58,22 +52,21 @@ const basic = {
             },{
                 test: /\.css$/,
                 loaders: ['style', 'css']
+            },{
+                test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
+                loader: 'url',
+                query: {
+                    limit: 10000,
+                    name: "img/[name].[hash:7].[ext]"
+                }
+            },{
+                test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
+                loader: 'url',
+                query: {
+                    limit: 10000,
+                    name: "fonts/[name].[hash:7].[ext]"
+                }
             }
         ]
     }
 };
-
-//webpack dev middleware 配置
-const dev = {
-        quiet: false,
-        noInfo: !0,
-        historyApiFallback: false,
-        publicPath: basic.output.publicPath,
-        filename: basic.output.filename,
-        stats: {colors: true},
-        headers: {"X-Custom-Header": "yes"}
-    };
-//webpack hot middleware 配置
-const hot = {};
-
-module.exports = {basic, dev, hot};

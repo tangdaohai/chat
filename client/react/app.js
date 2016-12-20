@@ -8,6 +8,7 @@ import { Router, Route, IndexRedirect, browserHistory } from 'react-router';
 import { Provider } from "react-redux";
 import { syncHistoryWithStore } from 'react-router-redux';
 
+import "./components/font-awesome.css";
 import "./components/basic.css";
 import Login from "./components/login";
 import Chat from "./components/chat";

@@ -13,7 +13,7 @@ gulp.task('start', function () {
     nodemon({
         script : "server/bin/www",      //启动文件
         args : ["dev"],                 //项目启动参数
-        nodeArgs : ["--es_staging", "--harmony"],   //node 启动参数 ["--use-strict", "--es_staging", "--harmony"]
+        // nodeArgs : ["--es_staging", "--harmony"],   //node 启动参数 ["--use-strict", "--es_staging", "--harmony"]
         watch : ["server"],             //监视 server 目录
         ignore : ["server/public/**.*"],//排除 public 目录
         ext : "js",                     //监测 js 结尾的文件

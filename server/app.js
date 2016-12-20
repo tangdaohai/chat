@@ -31,10 +31,10 @@ const Koa = require("koa"),
  */
 /** webpack configure. start */
 //开发模式下使用 webpack 自动打包插件
-if(configure.useWebpack){
+if(process.env.NODE_ENV === "development"){
     const webpack = require('webpack'),
-        config = require('../webpack/webpack.middleware.config.js'),    //引入配置文件
-        compile = webpack(config.basic);
+        config = require('../webpack/webpack.dev.config'),    //引入配置文件
+        compile = webpack(config.basicWebPack);
     //webpack 依赖插件
     require("babel-polyfill");
 
