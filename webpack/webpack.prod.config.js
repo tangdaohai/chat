@@ -40,7 +40,7 @@ basicWebPack.plugins =  [
     // see https://github.com/ampedandwired/html-webpack-plugin
     new HtmlWebpackPlugin({
         filename: 'react.html',
-        template: '../server/react.html',
+        template: '../client/react.html',
         inject: true,
         minify: {
             removeComments: true,

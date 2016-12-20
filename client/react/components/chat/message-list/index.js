@@ -20,7 +20,7 @@ export default class MessageList extends React.Component{
         return <div ref={ node => this._listNode = node } className="dialogue flex">
             <div className="dialogue-middle">
                 {
-                    List.map( (val, index) => <_Message key={index * 2} message={ val } myId={ this.props.user._id }/>)
+                    List.map( (val, index) => <_Message key={index * 2} message={ val } me={ this.props.user }/>)
                 }
             </div>
         </div>
@@ -47,11 +47,12 @@ class _Message extends React.Component{
 
     render(){
 
-        const { message, myId } = this.props;
+        const { message, me } = this.props;
+        const isFromMe = message.from === me._id;
 
-        return <div className={`dialogue-${message.from === myId ? "right" : "left"} flex`}>
+        return <div className={`dialogue-${isFromMe ? "right" : "left"} flex`}>
 
-            <Avatar user={ this.props.userList.filter( user => user._id === message.from)[0] }/>
+            <Avatar user={ isFromMe? me : this.props.userList.filter( user => user._id === message.from)[0] }/>
 
             <span className="arrow" />
             <div className="content flex">

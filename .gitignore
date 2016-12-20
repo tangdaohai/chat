@@ -1,4 +1,5 @@
 .idea
 .project
-
+server/public/*
+log/*
 node_modules

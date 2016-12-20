@@ -21,7 +21,7 @@ basicWebPack.plugins = [
     // https://github.com/ampedandwired/html-webpack-plugin
     new HtmlWebpackPlugin({
         filename: 'react.html',
-        template: '../server/react.html',
+        template: '../client/react.html',
         inject: true
     })
 ];

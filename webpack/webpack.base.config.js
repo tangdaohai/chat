@@ -21,7 +21,7 @@ module.exports = {
         publicPath: "/"
     },
     debug: true,
-    devtool: '#source-map',
+    devtool: 'cheap-module-eval-source-map',
     resolve: {
         root: [
             path.resolve(__dirname, './components')

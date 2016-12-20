@@ -2,10 +2,26 @@
   "name": "chat",
   "version": "1.0.0",
   "description": "",
+  "author": {
+    "name": "Jerry Tang",
+    "email": "tangdaohai@outlook.com"
+  },
+  "engines": {
+    "node": ">=6.0"
+  },
+  "keywords":[
+    "chat",
+    "react",
+    "koa2",
+    "socket.io"
+  ],
   "dependencies": {},
   "scripts": {
     "start": "gulp start",
-    "prod": "node server/bin/www prod"
+    "dev": "node server/bin/www",
+    "prod": "node server/bin/www prod",
+    "pm2": "pm2 start pm2/pm2-production.json",
+    "build": "node server/build/build.js"
   },
   "devDependencies": {
     "babel-core": "^6.11.4",
@@ -34,6 +50,7 @@
     "koa-webpack-dev-middleware": "^1.2.1",
     "koa-webpack-hot-middleware": "^1.0.3",
     "mongoose": "^4.6.0",
+    "ora": "^0.4.0",
     "rc-queue-anim": "^0.12.4",
     "react": "^15.3.0",
     "react-addons-css-transition-group": "^15.4.1",
@@ -47,6 +64,7 @@
     "redux-form": "^6.3.2",
     "redux-router": "^2.1.2",
     "redux-thunk": "^2.1.0",
+    "shelljs": "^0.7.5",
     "socket.io": "^1.4.8",
     "socket.io-client": "^1.4.8",
     "style-loader": "^0.13.1",

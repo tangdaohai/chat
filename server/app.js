@@ -30,7 +30,7 @@ const Koa = require("koa"),
  * koa-webpack-hot-middleware : https://github.com/dayAlone/koa-webpack-hot-middleware
  */
 /** webpack configure. start */
-//开发模式下使用 webpack 自动打包插件
+//开发模式下使用 webpack 热更新模块打包
 if(process.env.NODE_ENV === "development"){
     const webpack = require('webpack'),
         config = require('../webpack/webpack.dev.config'),    //引入配置文件
@@ -42,6 +42,9 @@ if(process.env.NODE_ENV === "development"){
     app.use( convert(require("koa-webpack-dev-middleware")(compile, config.dev)) );
     //热替换
     app.use( convert(require("koa-webpack-hot-middleware")(compile, config.hot)) );
+}else{
+    //线上模式 只打包一次,生成实体文件
+    require("./build/build");
 }
 /** webpack configure. end */
 

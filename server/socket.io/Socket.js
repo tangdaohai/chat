@@ -121,7 +121,7 @@ module.exports = function Socket(io){
                 _id: result._id.toString(),
                 email : result.email,
                 name : result.name,
-                avatar: utility.md5("tangdaohai@outlook.com")
+                // avatar: utility.md5("result.email")
             };
             callback(format.success(user));
             delete user.email;
