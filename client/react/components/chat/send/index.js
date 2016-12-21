@@ -9,8 +9,8 @@ import { connect } from "react-redux";
 import { send } from "../../../action/MessageAction";
 
 @connect( state => ({
-        user: state.user,
-        currentChatUser: state.currentChatUser
+    user: state.user,
+    currentChatUser: state.currentChatUser
 }), dispatch => ({
     ...bindActionCreators( { send } , dispatch)
 }) )
