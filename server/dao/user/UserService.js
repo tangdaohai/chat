@@ -77,3 +77,13 @@ exports.modifyName = function*(_id, name) {
 exports.modifyPassword = function*(_id, password){
     return yield UserModel.modifyPassword(_id, password.oldPassword, password.newPassword);
 };
+
+/**
+ * 修改使用的头像类型
+ * @param _id
+ * @param type
+ * @returns {*}
+ */
+exports.modifyAvatarType = function*(_id, type){
+    return yield UserModel.modify(_id, {avatarType: type});
+};

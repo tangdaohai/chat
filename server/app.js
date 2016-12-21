@@ -9,6 +9,7 @@
  * koa-router     : https://github.com/alexmingoia/koa-router/tree/master/
  * logger         : https://github.com/koajs/logger
  * koa-static     : https://github.com/koajs/static
+ * koa-favicon    : https://github.com/koajs/favicon
  * koa-convert    : https://github.com/koajs/convert
  */
 
@@ -21,6 +22,7 @@ const Koa = require("koa"),
     router = require("koa-router")(),
     logger = require("koa-logger"),
     staticFiles = require("koa-static"),
+    favicon = require('koa-favicon'),
     convert = require("koa-convert");
 
 /**
@@ -48,6 +50,7 @@ if(process.env.NODE_ENV === "development"){
 }
 /** webpack configure. end */
 
+app.use( convert(favicon(__dirname + '/favicon.ico')) );
 //配置 body parser
 app.use(bodyParser( configure.bodyparser ));
 //静态资源
@@ -57,9 +60,16 @@ app.use(views(__dirname + "/public",{ extension: 'ejs' }));
 //配置 logger
 app.use( convert(logger()) );
 
+app.use(co.wrap(function* (ctx, next){
+    //首页暂时重定向到 /react
+    if(ctx.path === "/"){
+        return ctx.redirect("/react");
+    }
+    next();
+}));
+
 //引用路由文件
 const index = require("./routes/index");
-
 //配置路由
 router.use("/react", index.routes(), index.allowedMethods());
 app.use(router.routes());
@@ -68,8 +78,8 @@ app.use(router.allowedMethods());
 app.use(co.wrap(function *(ctx){
     console.log("已进入404的方法");
     if(ctx.status === 404){
-        console.log(`here, 404... ${ctx.path}`);
         ctx.body= "<h1>404</h1>";
+        ctx.status = 404;
     }
 }));
 

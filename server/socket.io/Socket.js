@@ -78,6 +78,18 @@ module.exports = function Socket(io){
                 }
             });
         });
+        
+        //修改使用的头像类型
+        socket.on("user/modifyAvatarType", (type, callback) =>{
+            co(function* (){
+                const result = yield  UserService.modifyAvatarType(socket.user._id, type);
+                if(result.nModified >= 1){
+                    callback(format.success());
+                }else{
+                    callback(format.fail());
+                }
+            });
+        });
 
         //获取在线用户
         socket.on("user/getOnLine", (callback) => {
@@ -121,7 +133,8 @@ module.exports = function Socket(io){
                 _id: result._id.toString(),
                 email : result.email,
                 name : result.name,
-                // avatar: utility.md5("result.email")
+                avatarType: result.avatarType || 0,
+                avatar: utility.md5(result.email)
             };
             callback(format.success(user));
             delete user.email;
