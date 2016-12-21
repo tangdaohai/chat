@@ -41,6 +41,7 @@ export function getOnlineUser(){
     return dispatch => {
         socket.emit("user/getOnLine", result => {
             if(result.success){
+                console.log(result.content);
                 return dispatch({
                     type: USER_LIST,
                     userList: result.content
@@ -74,6 +75,11 @@ export function addUser(user){
     }
 }
 
+/**
+ * 用户离开
+ * @param user
+ * @returns {{type: string, user: *}}
+ */
 export function userLeave(user){
     return {
         type: USER_LEAVE,

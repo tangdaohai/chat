@@ -10,20 +10,20 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { changeCurrentChatUser } from "../../../../action/UserAction";
 
-@connect( state => ({ userList: state.userList}),
+@connect( state => ({ userMap: state.userMap}),
     dispatch => ({ ...bindActionCreators( { changeCurrentChatUser} , dispatch) }) )
 export default class List extends React.Component{
 
-    changeUser = index => () => {
+    changeUser = _id => () => {
         //变更当前的聊天对象
-        this.props.changeCurrentChatUser(this.props.userList[index]);
+        this.props.changeCurrentChatUser(this.props.userMap.get(_id));
     };
     
     render(){
         
         return <div className="user-list">
             <ul>
-                { this.props.userList.map( (val, index) => <_Item user={val} key={val._id} click={ this.changeUser(index) }/>) }
+                { Array.from(this.props.userMap.values()).map( (val, index) => <_Item user={val} key={val._id} click={ this.changeUser(val._id) }/>) }
             </ul>
         </div>
     }
@@ -39,7 +39,7 @@ class _Item extends React.Component{
             <Avatar avatar={ user.avatar } user={user} />
             <div className="name-content flex" onClick={this.props.click}>
                 <div className="no-wrap">{ user.name }</div>
-                <div className="no-wrap">Let's grab some coffee and tea, so keep easy</div>
+                <div className="no-wrap">{ user.lastMessage }</div>
                 { user.unread && <div className="user-unread">{user.unread}</div> }
             </div>
         </li>

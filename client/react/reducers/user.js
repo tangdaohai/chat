@@ -12,6 +12,9 @@ import {
     MODIFY_MY_NAME
 } from "../action/UserAction";
 
+//用于用户列表下面的最后一条消息
+import { SEND_MESSAGE, NEW_MESSAGE} from "../action/MessageAction";
+
 /**
  * 登陆用户的信息
  * @param user
@@ -34,43 +37,63 @@ export function user(user = {}, action){
 
 /**
  * 在线用户列表
- * @param userList
+ * @param userMap
  * @param action
  * @returns {*}
  */
-export function userList(userList = [], action){
+export function userMap(userMap = new Map(), action){
 
-    const list = Object.assign([], userList);
+    const map = new Map(userMap);
+
+    let user, id;
 
     switch (action.type){
         case USER_LIST: //获取在线用户列表
-            return Object.assign( [], action.userList);
+            action.userList.forEach(val => map.set( val._id, val ));
+            return map;
 
         case CHANGE_CHAT_USER:  //变更当前的聊天用户
-            list.forEach( val => {
-                val.active = val._id === action.currentChatUser._id;
-                //清除未读消息
-                val.unread = undefined;
-            });
+            let id = action.currentChatUser._id;
+            user = map.get(id);
+            user.active = true;
+            //清除未读消息
+            user.unread = undefined;
+            map.set(id, user);
 
-            return list;
+            return map;
+        
         case UNREAD:    //收到未读消息
-            for(let i = 0, length = list.length; i < length; i++){
-                if(list[i]._id === action.from){
-                    list[i].unread ? list[i].unread += 1 : list[i].unread = 1;
-                    return list;
-                }
-            }
-
-            return list;
+            
+            user = map.get(action.from);
+            user.unread ? user.unread += 1 : user.unread = 1;
+            map.set(action.from, user);
+            return map;
+        
         case ADD_USER:  //有用户上线
-            list.push(action.user);
-            return list;
+            map.set(action.user._id, action.user);
+            return map;
+        
         case USER_LEAVE:   //有用户离开
-            return list.filter( val => val._id !== action.user._id);
+            map.delete(action.user._id);
+            return map;
+        
+        case SEND_MESSAGE:
+            
+            id = action.message.to;
+            user = map.get(id);
+            user.lastMessage = action.message.content;
+            map.set(id, user);
+            return map;
+        
+        case NEW_MESSAGE:
+            id = action.message.from;
+            user = map.get(id);
+            user.lastMessage = action.message.content;
+            map.set(id, user);
+            return map;
     }
     
-    return userList;
+    return userMap;
 }
 
 /**
