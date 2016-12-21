@@ -50,7 +50,7 @@ if(process.env.NODE_ENV === "development"){
 }
 /** webpack configure. end */
 
-app.use( convert(favicon(__dirname + '/favicon.ico')) );
+// app.use( convert(favicon(__dirname + '/favicon.ico')) );
 //配置 body parser
 app.use(bodyParser( configure.bodyparser ));
 //静态资源
@@ -60,13 +60,13 @@ app.use(views(__dirname + "/public",{ extension: 'ejs' }));
 //配置 logger
 app.use( convert(logger()) );
 
-app.use(co.wrap(function* (ctx, next){
+app.use((ctx, next) => {
     //首页暂时重定向到 /react
     if(ctx.path === "/"){
         return ctx.redirect("/react");
     }
-    next();
-}));
+    return next();
+});
 
 //引用路由文件
 const index = require("./routes/index");
