@@ -34,8 +34,8 @@ function create() {
     if (process.env.NODE_ENV === 'development' && module.hot) {
         // Enable Webpack hot module replacement for reducers
         module.hot.accept('../reducers', () => {
-            const nextReducer = require('../reducers/index');
-            store.replaceReducer(nextReducer(store.asyncReducers));
+            const nextReducer = require('../reducers/index').default;
+            store.replaceReducer(nextReducer());
             // store.replaceReducer(combineReducers(nextReducer));
         })
     }

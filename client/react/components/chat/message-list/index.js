@@ -42,7 +42,7 @@ export default class MessageList extends React.Component{
 /**
  * 单条消息
  */
-@connect( state => ({ userList: state.userList }))
+@connect( state => ({ userMap: state.userMap }))
 class _Message extends React.Component{
 
     render(){
@@ -52,7 +52,7 @@ class _Message extends React.Component{
 
         return <div className={`dialogue-${isFromMe ? "right" : "left"} flex`}>
 
-            <Avatar user={ isFromMe? me : this.props.userList.filter( user => user._id === message.from)[0] }/>
+            <Avatar user={ isFromMe? me : this.props.userMap.get(message.from) }/>
 
             <span className="arrow" />
             <div className="content flex">
