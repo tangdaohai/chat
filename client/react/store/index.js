@@ -24,13 +24,15 @@ function create() {
         routing: routerReducer
     });
 
-    const store = createStore(reducer, compose(
-        applyMiddleware(thunk),
-        applyMiddleware(logger),
-        window.devToolsExtension ? window.devToolsExtension() : f => f
-    ));
+    const args = [applyMiddleware(thunk), applyMiddleware(logger)];
 
-    //开发模式下启动 热替换模块
+    if( process.env.NODE_ENV === 'development'){
+        args.push((window.devToolsExtension ? window.devToolsExtension() : f => f));
+    }
+
+    const store = createStore(reducer, compose( ...args ));
+
+    // 开发模式下启动 热替换模块
     if (process.env.NODE_ENV === 'development' && module.hot) {
         // Enable Webpack hot module replacement for reducers
         module.hot.accept('../reducers', () => {

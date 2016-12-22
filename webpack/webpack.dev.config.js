@@ -8,7 +8,12 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 var basicWebPack = require("./webpack.base.config");
 
 //热加载
-basicWebPack.entry.react.unshift("webpack-hot-middleware/client");
+basicWebPack.entry.react.unshift("webpack-hot-middleware/client");  //热替换
+basicWebPack.module.loaders.unshift({
+    test: /\.css$/,
+    loaders: ['style', 'css']
+});
+basicWebPack.devtool = 'cheap-module-eval-source-map';  //source map
 basicWebPack.plugins = [
     new webpack.DefinePlugin({
         'process.env': {

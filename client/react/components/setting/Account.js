@@ -31,9 +31,9 @@ export default class Account extends React.Component{
 
     render(){
         return <div className="setting-container flex">
-            <span>Email</span>
+            <span>Your Email</span>
             <input className="setting-input setting-disabled" disabled defaultValue={ this.props.user.email }/>
-            <span>Avatar</span>
+            <span>Avatar Type</span>
             <div className="setting-avatar flex">
                 <Avatar user={ this.props.user } />
                 <label
