@@ -50,7 +50,7 @@ if(process.env.NODE_ENV === "development"){
 }
 /** webpack configure. end */
 
-// app.use( convert(favicon(__dirname + '/favicon.ico')) );
+app.use( convert(favicon(__dirname + '/favicon.ico')) );
 //配置 body parser
 app.use(bodyParser( configure.bodyparser ));
 //静态资源
