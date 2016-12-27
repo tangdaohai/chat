@@ -10,8 +10,11 @@
  * logger         : https://github.com/koajs/logger
  * koa-static     : https://github.com/koajs/static
  * koa-favicon    : https://github.com/koajs/favicon
+ * koa-session    : https://github.com/koajs/session
  * koa-convert    : https://github.com/koajs/convert
  */
+
+const http = require("http");
 
 //引用插件
 const Koa = require("koa"),
@@ -22,7 +25,8 @@ const Koa = require("koa"),
     router = require("koa-router")(),
     logger = require("koa-logger"),
     staticFiles = require("koa-static"),
-    favicon = require('koa-favicon'),
+    favicon = require("koa-favicon"),
+    session = require('koa-session'),
     convert = require("koa-convert");
 
 /**
@@ -44,11 +48,20 @@ if(process.env.NODE_ENV === "development"){
     app.use( convert(require("koa-webpack-dev-middleware")(compile, config.dev)) );
     //热替换
     app.use( convert(require("koa-webpack-hot-middleware")(compile, config.hot)) );
-}else{
-    //线上模式 只打包一次,生成实体文件
-    require("./build/build");
 }
 /** webpack configure. end */
+
+var CONFIG = {
+    key: 'koa:sess', /** (string) cookie key (default is koa:sess) */
+    maxAge: 86400000, /** (number) maxAge in ms (default is 1 days) */
+    overwrite: true, /** (boolean) can overwrite or not (default true) */
+    httpOnly: true, /** (boolean) httpOnly or not (default true) */
+    signed: true, /** (boolean) signed or not (default true) */
+};
+
+app.keys = ['my chat'];
+const Session = session(CONFIG, app);
+app.use( convert(Session) );
 
 app.use( convert(favicon(__dirname + '/favicon.ico')) );
 //配置 body parser
@@ -87,8 +100,39 @@ app.use(co.wrap(function *(ctx){
     console.log("已进入500的方法");
     if(ctx.status === 500){
         console.log(`here, 500... ${ctx.path}`);
-        ctx.throw(500);
+        ctx.body= "<h1>服务器出错了……</h1>";
+        ctx.status = 500;
     }
 }));
 
-module.exports = app;
+/** mongoDB **/
+const mongoose = require('mongoose');
+connect()
+    .on("error", console.error)
+    .on('disconnected', connect)
+    .once("open", () => {
+        console.log("mongo db 连接成功.");
+    });
+
+function connect(){
+    return mongoose.connect(configure.mongoURI, configure.mongoOption).connection;
+}
+/** end */
+
+/**
+ * Create HTTP server.
+ */
+const server = http.createServer(app.callback());
+
+/** socket.io, 开启 socket 监听服务 **/
+const io = require("socket.io")(server);
+io.use(function(socket, next) {
+    return next();
+});
+require("./socket.io/Socket")(io);
+/**
+ * end
+ */
+
+
+module.exports = server;

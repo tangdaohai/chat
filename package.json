@@ -19,7 +19,7 @@
   "scripts": {
     "start": "gulp start",
     "dev": "node server/bin/www",
-    "prod": "node server/bin/www prod",
+    "prod": "npm run build && node server/bin/www prod",
     "pm2": "pm2 start pm2/pm2-production.json",
     "restart": "pm2 restart chat",
     "build": "node server/build/build.js"
@@ -67,6 +67,7 @@
     "redux-form": "^6.3.2",
     "redux-router": "^2.1.2",
     "redux-thunk": "^2.1.0",
+    "session": "^0.1.0",
     "shelljs": "^0.7.5",
     "socket.io": "^1.4.8",
     "socket.io-client": "^1.4.8",

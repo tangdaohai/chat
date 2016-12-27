@@ -14,7 +14,7 @@ module.exports = function Socket(io){
 
     io.of("/chat").on("connection", (socket) => {
         console.log("新的 socket 连接成功.");
-
+        
         //登陆
         socket.on("user/signIn", (user, callback) => {
 
