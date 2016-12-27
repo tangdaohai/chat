@@ -11,6 +11,7 @@ export const ADD_USER = "add-user";
 export const USER_LEAVE= "user-leave";
 
 export const MODIFY_MY_NAME = "modify-my-name";
+export const MODIFY_AVATAR_TYPE= "modify-avatar-type";
 /**
  * 登陆成功
  * @param user
@@ -107,11 +108,25 @@ export function unread(from){
 export function modifyMyName(name){
     return dispatch => {
         socket.emit("user/modifyMyName", name, result => {
-            console.log(result);
-            return dispatch({
-                type: MODIFY_MY_NAME,
-                name
-            });
+            if(result.success){
+                return dispatch({
+                    type: MODIFY_MY_NAME,
+                    name
+                });
+            }
+        });
+    }
+}
+
+export function modifyAvatarType(avatarType){
+    return dispatch => {
+        socket.emit("user/modifyAvatarType", avatarType, result =>{
+           if(result.success){
+               return dispatch({
+                   type: MODIFY_AVATAR_TYPE,
+                   avatarType
+               });
+           }
         });
     }
 }

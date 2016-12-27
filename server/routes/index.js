@@ -7,9 +7,8 @@ router.get("*", function (ctx){
   if(process.env.NODE_ENV === "development"){
     return ctx.body = ctx.webpack.fileSystem.readFileSync('/react.html').toString();
   }
-
   //线上模式
-  return ctx.render("/react.html");
+  return ctx.render("react.html");
 });
 
 module.exports = router;

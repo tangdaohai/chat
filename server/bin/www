@@ -10,17 +10,8 @@ process.env.NODE_ENV = {
 global.configure = conf(process.argv[2] || "dev");
 
 //启动服务
-const app = require("../app"),
-    http = require("http");
-
-/**
- * Create HTTP server.
- */
-const server = http.createServer(app.callback()),
+const server = require("../app"),
     port = configure.port || 3000;
-//引用 socket.io
-const io = require("socket.io")(server);
-require("../socket.io/Socket")(io);
 
 //启动系统服务
 server.listen(port);
@@ -63,17 +54,4 @@ function onListening() {
     ? 'pipe ' + addr
     : 'port ' + addr.port;
     console.log(`已启动 端口: ${bind}`);
-
-    //mongoDB
-    const mongoose = require('mongoose');
-    connect()
-        .on("error", console.error)
-        .on('disconnected', connect)
-        .once("open", () => {
-            console.log("mongo db 连接成功.");
-        });
-
-    function connect(){
-        return mongoose.connect(configure.mongoURI, configure.mongoOption).connection;
-    }
 }

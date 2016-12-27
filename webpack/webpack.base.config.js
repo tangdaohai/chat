@@ -21,7 +21,6 @@ module.exports = {
         publicPath: "/"
     },
     debug: true,
-    devtool: 'cheap-module-eval-source-map',
     resolve: {
         root: [
             path.resolve(__dirname, './components')
@@ -49,9 +48,6 @@ module.exports = {
                     }
                 },
                 exclude: /node_modules/
-            },{
-                test: /\.css$/,
-                loaders: ['style', 'css']
             },{
                 test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
                 loader: 'url',

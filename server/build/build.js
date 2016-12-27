@@ -17,11 +17,7 @@ console.log(
 var spinner = ora('building for production...\t');
 spinner.start();
 
-rm('-rf', path.resolve(__dirname, "../public/*.html"));
-rm('-rf', path.resolve(__dirname, "../public/fonts"));
-rm('-rf', path.resolve(__dirname, "../public/img"));
-rm('-rf', path.resolve(__dirname, "../public/css"));
-rm('-rf', path.resolve(__dirname, "../public/js"));
+rm('-rf', path.resolve(__dirname, "../public"));
 
 webpack(baseWebpack, (err, stats) => {
     spinner.stop();

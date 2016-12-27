@@ -67,3 +67,22 @@
     width: 100%;
     flex-direction: column;
 }
+
+.setting-container .setting-avatar{
+    margin-top: 20px;
+    margin-bottom: 30px;
+    align-items: center;
+}
+
+.setting-container .setting-avatar .setting-avatar-label{
+    margin-left: 20px;
+}
+
+.setting-container .setting-avatar .what-gravator{
+    color: #88929f;
+    margin-left: 20px;
+}
+
+.setting-container .setting-avatar .what-gravator:visited{
+    color: #88929f;
+}

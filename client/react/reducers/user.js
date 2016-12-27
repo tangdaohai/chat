@@ -9,7 +9,8 @@ import {
     UNREAD,
     ADD_USER,
     USER_LEAVE,
-    MODIFY_MY_NAME
+    MODIFY_MY_NAME,
+    MODIFY_AVATAR_TYPE
 } from "../action/UserAction";
 
 //用于用户列表下面的最后一条消息
@@ -25,10 +26,13 @@ export function user(user = {}, action){
 
     const u = Object.assign({}, user);
     switch (action.type){
-        case SIGN_IN_SUCCESS : 
+        case SIGN_IN_SUCCESS : //登录或者注册成
             return Object.assign( {}, action.user);
-        case MODIFY_MY_NAME:
+        case MODIFY_MY_NAME:    //修改名称
             u.name = action.name;
+            return u;
+        case MODIFY_AVATAR_TYPE: //修好使用的头像方式
+            u.avatarType = action.avatarType;
             return u;
     }
     
