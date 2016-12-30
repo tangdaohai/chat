@@ -24,7 +24,9 @@ function create() {
         routing: routerReducer
     });
 
-    const args = [applyMiddleware(thunk), applyMiddleware(logger)];
+    // const args = [applyMiddleware(thunk), applyMiddleware(logger)];
+    const args = [applyMiddleware(thunk)];
+    
 
     if( process.env.NODE_ENV === 'development'){
         args.push((window.devToolsExtension ? window.devToolsExtension() : f => f));

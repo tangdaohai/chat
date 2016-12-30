@@ -6,15 +6,31 @@ const co = require("co");
 const UserService = require("../dao/user/UserService");
 const format = require("../configure/DataFormat");
 const utility = require("utility");
+const SocketIdStore = require("./SocketIdStore");
+const Subcribe = require("../util/PublishSubscribe");
 
 module.exports = function Socket(io){
 
     //在线的用户列表
     const  onLines = new Map();
 
-    io.of("/chat").on("connection", (socket) => {
+    const Chat = io.of("/chat");
+
+    /**
+     * 订阅事件
+     * 用户登录
+     */
+    Subcribe.on("user/login", user => {
+        const socketId = SocketIdStore.get(user._id).socketId;
+        const socket = getSocket(socketId);
+        //将 user 与 socket 绑定, 用于用户离线后在 socket id store 中移除
+        socket.user = user;
+         //发布上线通知
+        socket.broadcast.emit("add user", format.success(socket.user));
+    });
+
+    Chat.on("connection", (socket) => {
         console.log("新的 socket 连接成功.");
-        
         //登陆
         socket.on("user/signIn", (user, callback) => {
 
@@ -51,6 +67,7 @@ module.exports = function Socket(io){
 
         //修改名称
         socket.on("user/modifyMyName", (name, callback) => {
+            
             if( !socket.user || !socket.user._id){
                 callback(format.fail());
             }
@@ -93,13 +110,12 @@ module.exports = function Socket(io){
 
         //获取在线用户
         socket.on("user/getOnLine", (callback) => {
-
             callback(format.success(getOnLines(socket.user)));
         });
         
         //用户发送信息
         socket.on("send message", (data) => {
-            let toSocket = onLines.get(data.to);
+            let toSocket = getSocket( SocketIdStore.get(data.to)["socketId"] );
             if(toSocket){
                 toSocket.emit("new message", format.success(data));
             }
@@ -114,12 +130,11 @@ module.exports = function Socket(io){
          */
         const getOnLines  = (currentUser = {_id: ""}) => {
             const users = [];
-            for(let [key, value] of onLines.entries()){
-                //去除当前用户
-                if(key != currentUser._id){
-                    users.push(value.user);
+            SocketIdStore.get().forEach(val =>{
+                if(val.user._id !== currentUser._id){
+                    users.push(val.user);
                 }
-            }
+            });
             return users;
         };
 
@@ -153,9 +168,19 @@ module.exports = function Socket(io){
             //如果用户有登陆, 删除这个用户
             if(socket.user){
                 console.log(socket.user.name + " 离开");
-                onLines.delete(socket.user["_id"]);
+                SocketIdStore.remove(socket.user["_id"]);
                 socket.broadcast.emit("user leave", format.success(socket.user));
             }
         };
     });
+
+    /**
+     * 根据 socket id 在 chat nsp 中获取 socket
+     * 
+     * @param {any} socketId
+     * @returns
+     */
+    function getSocket(socketId){
+        return Chat.connected["/chat#" + socketId];
+    }
 };

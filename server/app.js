@@ -82,9 +82,10 @@ app.use((ctx, next) => {
 });
 
 //引用路由文件
-const index = require("./routes/index");
+const react = require("./routes/react");
+const user = require("./routes/user");
 //配置路由
-router.use("/react", index.routes(), index.allowedMethods());
+router.use(react.routes(), user.routes());
 app.use(router.routes());
 app.use(router.allowedMethods());
 
@@ -133,6 +134,5 @@ require("./socket.io/Socket")(io);
 /**
  * end
  */
-
 
 module.exports = server;

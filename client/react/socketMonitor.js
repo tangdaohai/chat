@@ -9,11 +9,11 @@ import store from "./store";
 export function socketMonitor (io){
 
     //有用户加入
-    io.on("add user", (data) => store.dispatch(addUser(data.content)) );
+    io.on("add user", data => store.dispatch(addUser(data.content)) );
     //用户离开
-    io.on("user leave", (data) => store.dispatch(userLeave(data.content)) );
+    io.on("user leave", data => store.dispatch(userLeave(data.content)) );
     // 接收消息
-    io.on("new message", (data) => {
+    io.on("new message", data => {
         //收到的新消息
         const message = data.content;
         //获取当前正在聊天的人
@@ -25,4 +25,6 @@ export function socketMonitor (io){
         //接收消息
         store.dispatch(newMessage(message));
     });
+
+    io.on("test", data => console.log(data));
 }

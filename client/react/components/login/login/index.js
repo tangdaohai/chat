@@ -9,6 +9,7 @@ import "./login.css";
 import SwitchIcon from "../switch-icon";
 import notification from "../../notification";
 import Loading from "../../loading";
+import Request from "../../../Request";
 
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
@@ -26,8 +27,10 @@ class Login extends React.Component {
     }
 
     login() {
+        //加载 loading
         this.setState({ isLoading: true });
-        socket.emit("user/signIn", this.props.form.login.values, result => {
+        //利用 fetch 向 server 端发起 post 请求。
+        Request.post("/user/login", { ...this.props.form.login.values, socketId: socket.id}).then(result => {
             this.setState({ isLoading: false });
             if(result.success){
                 this.props.loginSuccess(result.content);
