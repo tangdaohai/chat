@@ -13,7 +13,19 @@ class Request{
             },
             body: JSON.stringify(data)
         }).then(res => {
-            console.log(res.ok);
+            return res.json();
+        });
+    }
+
+    put(url, data){
+        return fetch(url, {
+            method: "PUT",
+            headers: { 
+                'Accept': 'application/json', 
+                'Content-Type': 'application/json' 
+            },
+            body: JSON.stringify(data)
+        }).then(res => {
             return res.json();
         });
     }

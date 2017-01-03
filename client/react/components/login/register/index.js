@@ -8,6 +8,7 @@ import {browserHistory} from "react-router";
 import notification from "../../notification";
 import SwitchIcon from "../switch-icon";
 import "./register.css";
+import Request from "../../../Request";
 
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
@@ -25,8 +26,8 @@ class Register extends React.Component {
     }
 
     register(){
-        socket.emit("user/signUp", this.props.form.register.values, result =>{
-           if(result.success){
+        Request.put("/user/register", { ...this.props.form.register.values, socketId: socket.id}).then(result =>{
+            if(result.success){
                this.props.registerSuccess(result.content);
                browserHistory.push("/react/chat");
            }else{
@@ -34,6 +35,15 @@ class Register extends React.Component {
                notification.error(result.message);
            }
         });
+        // socket.emit("user/signUp", this.props.form.register.values, result =>{
+        //    if(result.success){
+        //        this.props.registerSuccess(result.content);
+        //        browserHistory.push("/react/chat");
+        //    }else{
+        //        //注册失败
+        //        notification.error(result.message);
+        //    }
+        // });
     }
 
     render() {
