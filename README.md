@@ -35,21 +35,18 @@ chat: [https://dribbble.com/shots/3136091-Chat-Web-App/attachments/664059](https
 
 * 内置了 webpack 的运行命令所以webpack 也不是必须的
 
-* gulp 如果你想使node拥有热启动的超能力(`nodemon这个插件有这能力`),需要全局安装 gulp(`npm install -g gulp 注意是否需要 sudo`),需要使用 nodemon 作为启动入口.
-  当然也可以直接使用`npm run prod`来启动项目,一样的.
-
 ###启动项目
 ```
     //npm 命令说明
-    npm start   //对 gulp 有依赖
+    npm start   //使用nodemon启动node,为了node端热更新。
     npm run dev
-    //这两个都是启动开发模式, 开发者模式在 koa 中集成了 webpack 与 热替换模块, 所以这个模式下面不会生成实体 js,css 与 html 文件, 到在 webpack 管理的内存中存放.
+    //这两个都是启动开发模式, 开发者模式在 koa 中集成了 webpack 与 热替换模块, 所以这个模式下面不会生成实体 js,css 与 html 文件, 在 webpack 管理的内存中存放.
 
-    npm run prod //启动线上环境部署(也没什么线上的配置……都一样的……😓)
+    npm run prod //启动线上环境部署
     npm run pm2 //将进程托管给pm2, 此模式会一直在后台运行
     //这两个都是线上配置模式, 区别也只是在与 webpack 的配置. 会进行 js,css 分离,压缩,md5戳. html 也会自动压缩,会自动添加 js,css 路径
 
-    npm run build //按照线上部署模式进行打包.
+    npm run build //按照线上部署模式webpack进行打包.
 ```
 
 ### 关于 css 布局
