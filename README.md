@@ -1,15 +1,15 @@
-#Chat
+# Chat
 
-> 开发中。
+> 此项目已经不再维护，而且版本已经很古老了，`React 相关的知识不建议使用本库作为学习参考`。
 
 node, koa2 + socket.io + React
 
-###安装  node >= 6.0
+### 安装  node >= 6.0
 
     git clone https://github.com/tangdaohai/chat
     npm install
 
-###写在前面
+### 写在前面
 
 这是一个使用了 koa2 全家桶与 react 全家桶的一个聊天项目.
 后期打算加入 vue 与 ng2 模块的方式.
@@ -27,7 +27,7 @@ chat: [https://dribbble.com/shots/3136091-Chat-Web-App/attachments/664059](https
 
 设置: [https://dribbble.com/shots/2864249-Account-settings/attachments/590588](https://dribbble.com/shots/2864249-Account-settings/attachments/590588)
 
-###启动之前的准备
+### 启动之前的准备
 
 ##### * 依赖: mongodb 这个是最重要的, 需要创建为项目创建一个 chat 的数据库, 然后为这个数据库添加一个有读写权限的账号, 在配置中修改为你的账号. `server/configure/ 在这个目录下`
 
@@ -35,7 +35,7 @@ chat: [https://dribbble.com/shots/3136091-Chat-Web-App/attachments/664059](https
 
 * 内置了 webpack 的运行命令所以webpack 也不是必须的
 
-###启动项目
+### 启动项目
 ```
     //npm 命令说明
     npm start   //使用nodemon启动node,为了node端热更新。
@@ -53,7 +53,7 @@ chat: [https://dribbble.com/shots/3136091-Chat-Web-App/attachments/664059](https
 
 react 中的所有布局方式为 flex + position, 正在慢慢在细节上添加一些动画. 对 css 研究不深,所以关于 css 方面可能处理的并不优雅, 欢迎指点……
 
-###部分截图(再次感谢 dribble 上设计师们……)
+### 部分截图(再次感谢 dribble 上设计师们……)
 
 1. 登陆
 
